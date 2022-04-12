@@ -398,15 +398,15 @@ const Home: NextPage = () => {
           display={progress == 10 ? "Flex" : "none"}
         >
           <InputGroup w="30%">
-            <InputLeftAddon children="Nome" />
+            <InputLeftAddon />
             <Input type="text" placeholder="Elon Musk" />
           </InputGroup>
           <InputGroup w="30%">
-            <InputLeftAddon children="E-mail" />
+            <InputLeftAddon  />
             <Input type="text" placeholder="elonMusk@gmail.com" />
           </InputGroup>
           <InputGroup w="30%">
-            <InputLeftAddon children="Telefone" />
+            <InputLeftAddon />
             <Input type="text" placeholder="+1 55 9 9999-9999" />
           </InputGroup>
         </Flex>
