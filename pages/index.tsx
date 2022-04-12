@@ -488,7 +488,7 @@ const Home: NextPage = () => {
         </Box>
       </Flex>
       <Box bg="#aaaa" w="100%" h="100px">
-        <Text textAlign="center" pt="2%">Copyright © 2022 Vercel Inc. All rights reserved.</Text>
+        <Text textAlign="center" pt="2%">Copyright © 2022 JVM. All rights reserved.</Text>
       </Box>
     </>
   );
