@@ -8,17 +8,39 @@ import {
   InputGroup,
   InputLeftAddon,
   Input,
+  Radio,
+  Stack,
+  RadioGroup,
 } from "@chakra-ui/react";
 import type { NextPage } from "next";
 import { Icon } from "@iconify/react";
-import React from "react";
+import React, { useEffect } from "react";
+import StepOne from "./steps/stepOne";
+import StepTwo from "./steps/sterTwo";
 
 const primary = "#0079AE";
 const secondary = "#E68C26";
 const backgroud = "#e9e9e9";
 const Home: NextPage = () => {
-  const [chose, setChose] = React.useState(0);
-  const [progress, setProgress] = React.useState(10);
+  const [chose, setChose] = React.useState(1);
+  const [value, setValue] = React.useState(10);
+  const [time, setTime] = React.useState(100);
+  const [progress, setProgress] = React.useState(0);
+  const steps = [50];
+  useEffect(() => {
+    if (chose == 1) {
+      steps[0] = 200;
+      setValue(steps[0]);
+    }
+    if (chose == 2) {
+      steps[0] = 300;
+      setValue(steps[0]);
+    }
+    if (chose == 3) {
+      steps[0] = 400;
+      setValue(steps[0]);
+    }
+  });
   return (
     <>
       <Box w="1440px" mx="auto">
@@ -310,7 +332,7 @@ const Home: NextPage = () => {
           Veja exemplos de sites em nosso portfólio <u>clicando aqui.</u>
         </Text>
       </Box>
-      <Box w="1440px" mx="auto" h="500px">
+      <Box w="1440px" mx="auto">
         <Text
           fontFamily="body"
           my="1%"
@@ -392,40 +414,17 @@ const Home: NextPage = () => {
           bg={primary}
           borderRadius="3px"
         ></Box>
-        <Flex
-          justifyContent="space-between"
-          my="3%"
-          display={progress == 10 ? "Flex" : "none"}
-        >
-          <InputGroup w="30%">
-            <InputLeftAddon />
-            <Input type="text" placeholder="Elon Musk" />
-          </InputGroup>
-          <InputGroup w="30%">
-            <InputLeftAddon  />
-            <Input type="text" placeholder="elonMusk@gmail.com" />
-          </InputGroup>
-          <InputGroup w="30%">
-            <InputLeftAddon />
-            <Input type="text" placeholder="+1 55 9 9999-9999" />
-          </InputGroup>
-        </Flex>
-        <Box
-          w="100%"
-          justifyContent="space-between"
-          my="3%"
-          display={progress == 20 ? "Flex" : "none"}
-        >
-          <Text textAlign="center" fontSize="20px" color={primary}>
-            Assinale a característica mais importante para você.{" "}
-          </Text>
+        <Box h="30vh">
+          <StepOne progress={progress} />
+          <StepTwo progress={progress} colorPrimary={primary} />
         </Box>
-        <Flex>
+        <Flex h="auto" mb="3%">
           <Button
             mx="auto"
             onClick={() => {
               setProgress(progress - 10);
             }}
+            isDisabled={progress == 0 ? true : false}
           >
             Anterior
           </Button>
@@ -434,16 +433,36 @@ const Home: NextPage = () => {
             onClick={() => {
               setProgress(progress + 10);
             }}
+            isDisabled={progress == 100 ? true : false}
           >
             Próximo
           </Button>
+        </Flex>
+        <Flex justifyContent="space-between" w="40%" mx="auto">
+          <Box px="3%" w="45%">
+            <Text textAlign="center" fontSize="20px" color={primary}>
+              Valor estimado:
+            </Text>
+            <Text textAlign="center" fontSize="20px" color={secondary}>
+              R$ {value},00 reais
+            </Text>
+          </Box>
+          <Box w="45%" px="3%">
+            <Text textAlign="center" fontSize="20px" color={primary}>
+              Tempo estimado:
+            </Text>
+            <Text textAlign="center" fontSize="20px" color={secondary}>
+              {time} dias
+            </Text>
+          </Box>
         </Flex>
       </Box>
       <Flex
         justifyContent="space-around"
         w="1440px"
         mx="auto"
-        display={chose == 1 ? "Flex": "none"}
+        display={chose == 1 ? "Flex" : "none"}
+        h="fit"
       >
         <Box w="30%">
           <Image src="/pc1.png" alt="" />
@@ -487,8 +506,16 @@ const Home: NextPage = () => {
           <Image src="/prototipe.png" alt="" />
         </Box>
       </Flex>
+      <Flex justifyContent="space-between" w="1440px" mx="auto">
+        <Box borderLeft="1px solid #cccc" pl="5%" alignSelf="center">
+          <Text>Ajude nos a melhorar deuxe seu comentário</Text>
+        </Box>
+      </Flex>
+      <Button mx="auto">Enviar</Button>
       <Box bg="#aaaa" w="100%" h="100px">
-        <Text textAlign="center" pt="2%">Copyright © 2022 JVM. All rights reserved.</Text>
+        <Text textAlign="center" pt="2%">
+          Copyright © 2022 JVM. All rights reserved.
+        </Text>
       </Box>
     </>
   );
