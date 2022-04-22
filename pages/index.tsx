@@ -14,33 +14,31 @@ import {
 } from "@chakra-ui/react";
 import type { NextPage } from "next";
 import { Icon } from "@iconify/react";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import StepOne from "./steps/stepOne";
 import StepTwo from "./steps/sterTwo";
+import StepeExample from "./steps/stepExample";
+import StepeZero from "./steps/stepZero";
 
-const primary = "#0079AE";
-const secondary = "#E68C26";
-const backgroud = "#e9e9e9";
 const Home: NextPage = () => {
+  const [primary, setPrimary] = useState("#0079AE");
+  const [secondary, setSecondary] = useState("#E68C26");
+  const [backgroud, setBackgroud] = useState("#e9e9e9");
   const [chose, setChose] = React.useState(1);
-  const [value, setValue] = React.useState(10);
   const [time, setTime] = React.useState(100);
   const [progress, setProgress] = React.useState(0);
-  const steps = [50];
-  useEffect(() => {
-    if (chose == 1) {
-      steps[0] = 200;
-      setValue(steps[0]);
+  var steps = [0];
+  const [valor, setValor] = React.useState("");
+
+  function handleAddValue(step: number, value: number) {
+    steps[step] = value;
+    let val = 0;
+    for (let i = 0; i < steps.length; i++) {
+      val = steps[i] + val;
     }
-    if (chose == 2) {
-      steps[0] = 300;
-      setValue(steps[0]);
-    }
-    if (chose == 3) {
-      steps[0] = 400;
-      setValue(steps[0]);
-    }
-  });
+    let text = val.toString();
+    setValor(text);
+  }
   return (
     <>
       <Box w="1440px" mx="auto">
@@ -353,10 +351,21 @@ const Home: NextPage = () => {
         >
           Escolha a opção que mais te chama atenção
         </Text>
-        <Flex justifyContent="space-around" my="4%">
+        <Flex justifyContent="space-around" my="4%" position="relative">
+          <Box
+            bg={primary}
+            position="absolute"
+            transform="rotate(45deg)"
+            w="300px"
+            h="700px"
+            left="-20%"
+            bottom="-300%"
+            zIndex="-1"
+          />
           <Button
             onClick={() => {
               setChose(1);
+              handleAddValue(1, 400);
             }}
             bg={chose == 1 ? primary : secondary}
             borderRadius="20px"
@@ -374,6 +383,7 @@ const Home: NextPage = () => {
           <Button
             onClick={() => {
               setChose(2);
+              handleAddValue(0, 200);
             }}
             bg={chose == 2 ? primary : secondary}
             borderRadius="20px"
@@ -391,6 +401,7 @@ const Home: NextPage = () => {
           <Button
             onClick={() => {
               setChose(3);
+              handleAddValue(0, 100);
             }}
             bg={chose == 3 ? primary : secondary}
             borderRadius="20px"
@@ -413,10 +424,24 @@ const Home: NextPage = () => {
           h="10px"
           bg={primary}
           borderRadius="3px"
-        ></Box>
-        <Box h="30vh">
-          <StepOne progress={progress} />
+        />
+        <Box minH="30vh">
+          <StepeZero progress={progress} step={0} color={primary} />
+          <StepOne
+            progress={progress}
+            changeColor={(color, second) => {
+              setPrimary(color);
+              setSecondary(second);
+            }}
+          />
           <StepTwo progress={progress} colorPrimary={primary} />
+          <StepeExample
+            progress={progress}
+            step={3}
+            value={(step, value) => {
+              handleAddValue(step, value);
+            }}
+          />
         </Box>
         <Flex h="auto" mb="3%">
           <Button
@@ -433,7 +458,9 @@ const Home: NextPage = () => {
             onClick={() => {
               setProgress(progress + 10);
             }}
-            isDisabled={progress == 100 ? true : false}
+            isDisabled={
+              progress == 100 || progress / 10 > steps.length ? true : false
+            }
           >
             Próximo
           </Button>
@@ -444,7 +471,7 @@ const Home: NextPage = () => {
               Valor estimado:
             </Text>
             <Text textAlign="center" fontSize="20px" color={secondary}>
-              R$ {value},00 reais
+              R$ {valor},00 reais
             </Text>
           </Box>
           <Box w="45%" px="3%">
@@ -463,15 +490,40 @@ const Home: NextPage = () => {
         mx="auto"
         display={chose == 1 ? "Flex" : "none"}
         h="fit"
+        my="5%"
       >
-        <Box w="30%">
-          <Image src="/pc1.png" alt="" />
+        <Box w="30%" borderRight="1px solid" borderColor={secondary}>
+          <Text textAlign="center" fontSize="30px" color={primary} fontWeight="600">
+            Vantagens
+          </Text>
+          <Text textAlign="center" fontSize="20px" >
+            Desenvolvimento próprio
+          </Text>
+          <Text textAlign="center" fontSize="20px"  mt="3%">
+            Sistema de agendamento online
+          </Text>
         </Box>
-        <Box w="30%">
-          <Image src="/pc1.png" alt="" />
+        <Box w="30%"  borderRight="1px solid #aaaaa">
+          <Text textAlign="center" fontSize="30px" color={primary} fontWeight="600">
+            Público
+          </Text>
+          <Text textAlign="center" fontSize="20px" >
+            Invista em anúncios que aparecerão apenas para pessoas interessadas e para um público mais centralizado
+          </Text>
+          <Text textAlign="center" fontSize="20px" mt="3%">
+            Tráfego orgânico gratuíto
+          </Text>
         </Box>
-        <Box w="30%">
-          <Image src="/pc1.png" alt="" />
+        <Box w="30%"  borderLeft="1px solid" borderColor={secondary}>
+          <Text textAlign="center" fontSize="30px" color={primary} fontWeight="600">
+            Resultados
+          </Text>
+          <Text textAlign="center" fontSize="20px" >
+            60% de desenvolvimento de marca nos primeiros dois meses
+          </Text>
+          <Text textAlign="center" fontSize="20px"  mt="3%">
+            Agendamento online para clínicas.
+          </Text>
         </Box>
       </Flex>
       <Flex
@@ -479,15 +531,16 @@ const Home: NextPage = () => {
         w="1440px"
         mx="auto"
         display={chose == 2 ? "Flex" : "none"}
+        my="5%"
       >
         <Box w="30%">
-          <Image src="/pc2.png" alt="" />
+          <Image src="/siteModel1.png" alt="" />
         </Box>
         <Box w="30%">
-          <Image src="/pc2.png" alt="" />
+          <Image src="/siteModel2.png" alt="" />
         </Box>
         <Box w="30%">
-          <Image src="/pc2.png" alt="" />
+          <Image src="/siteModel3.png" alt="" />
         </Box>
       </Flex>
       <Flex
@@ -495,6 +548,7 @@ const Home: NextPage = () => {
         w="1440px"
         mx="auto"
         display={chose == 3 ? "Flex" : "none"}
+        my="5%"
       >
         <Box w="30%">
           <Image src="/prototipe.png" alt="" />
