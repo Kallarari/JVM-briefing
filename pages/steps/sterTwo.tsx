@@ -1,37 +1,48 @@
-import { Box, Flex, Input, InputGroup,Text, InputLeftAddon, RadioGroup, Stack, Radio } from '@chakra-ui/react'
-import React, { useState } from 'react'
+import {
+  Box,
+  Flex,
+  Input,
+  InputGroup,
+  Text,
+  InputLeftAddon,
+  RadioGroup,
+  Stack,
+  Radio,
+} from "@chakra-ui/react";
+import React, { useState } from "react";
 
 type stepProps = {
   progress: number;
   colorPrimary: string;
-}
-export default function StepTwo({progress,colorPrimary}:stepProps) {
+  step: number;
+};
+export default function StepTwo({ progress, colorPrimary,step }: stepProps) {
   const [value, setValue] = useState("");
-   return (
+  return (
     <Box
-    w="100%"
-    justifyContent="space-between"
-    my="3%"
-    display={progress == 20 ? "block" : "none"}
-  >
-    <Text textAlign="center" fontSize="20px" color={colorPrimary}>
-      Assinale a característica mais importante para você.{" "}
-    </Text>
-    <RadioGroup onChange={setValue} value={value}>
-      <Stack direction="row" justifyContent="space-between" my="3%">
-        <Radio value="1">Clareza</Radio>
-        <Radio value="2">Exclusividade</Radio>
-        <Radio value="3">Seriedade</Radio>
-        <Radio value="4">Vistosidade</Radio>
-        <Radio value="5">Conforto</Radio>
-        <Radio value="6">Perfeição</Radio>
-        <Radio value="7">Outro</Radio>
-      </Stack>
-    </RadioGroup>
-    <InputGroup w="30%">
-      <InputLeftAddon />
-      <Input type="text" placeholder="+1 55 9 9999-9999" />
-    </InputGroup>
-  </Box>
-  )
+      w="100%"
+      justifyContent="space-between"
+      my="3%"
+      display={progress == step ? "block" : "none"}
+    >
+      <Text textAlign="center" fontSize="20px" color={colorPrimary}>
+        Assinale quais páginas(containers se for One-Page) você acha importante o seu site ter
+      </Text>
+      <RadioGroup onChange={setValue} value={value}>
+        <Stack direction="row" justifyContent="space-between" my="3%">
+          <Radio value="1">Contato</Radio>
+          <Radio value="2">Quem somos</Radio>
+          <Radio value="3">Serviços</Radio>
+          <Radio value="4">Perguntas frequentes</Radio>
+          <Radio value="5">Termos e condições de uso</Radio>
+          <Radio value="6">Blog</Radio>
+          <Radio value='7' >Outro</Radio>
+        </Stack>
+      </RadioGroup>
+      <InputGroup w="35%" mx="auto" display={value == '7'? "static": "none"}>
+        <Text textAlign="center" fontSize="20px" color={colorPrimary} mb="3%">Qual página você gostaria que seu site tivesse a mais?</Text>
+        <Input type="text" placeholder="Pagina de ...." />
+      </InputGroup>
+    </Box>
+  );
 }

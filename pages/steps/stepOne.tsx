@@ -13,8 +13,9 @@ import Colors from "../componnets/colors";
 type stepProps = {
   progress: number;
   changeColor: (color: string, secondaryColor: string) => void;
+  step: number;
 };
-export default function StepOne({ progress, changeColor }: stepProps) {
+export default function StepOne({ progress, changeColor, step }: stepProps) {
   const [color, setColor] = useState("");
   const colors = [
     {
@@ -53,7 +54,7 @@ export default function StepOne({ progress, changeColor }: stepProps) {
   return (
     <>
       <Text
-        display={progress == 10 ? "block" : "none"}
+        display={progress == step ? "static" : "none"}
         textAlign="center"
         color={color}
         fontSize="25px"
@@ -65,7 +66,7 @@ export default function StepOne({ progress, changeColor }: stepProps) {
       <Flex
         justifyContent="space-between"
         my="3%"
-        display={progress == 10 ? "Flex" : "none"}
+        display={progress == step ? "Flex" : "none"}
         transition="1s"
         h="100px"
         w="80%"
