@@ -25,8 +25,8 @@ export default function StepTwo({ progress, colorPrimary,step }: stepProps) {
       my="3%"
       display={progress == step ? "block" : "none"}
     >
-      <Text textAlign="center" fontSize="20px" color={colorPrimary}>
-        Assinale quais páginas(containers se for One-Page) você acha importante o seu site ter
+      <Text textAlign="center" fontSize="30px" fontWeight="600" color={colorPrimary}>
+        Assinale quais páginas(containers se for One-Page) você acha importante o seu site ter.
       </Text>
       <RadioGroup onChange={setValue} value={value}>
         <Stack direction="row" justifyContent="space-between" my="3%">

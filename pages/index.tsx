@@ -22,25 +22,21 @@ import StepeZero from "./steps/stepZero";
 import Link from "next/link";
 import Explain from "./componnets/explain";
 import Benefits from "./componnets/benefits";
+import StepeIntroduction from "./steps/stepIntroduction";
+import { setValues } from "framer-motion/types/render/utils/setters";
 
 const Home: NextPage = () => {
   const [primary, setPrimary] = useState("#0079AE");
   const [secondary, setSecondary] = useState("#E68C26");
   const [chose, setChose] = React.useState(1);
-  const [time, setTime] = React.useState(100);
+  const [time, setTime] = React.useState(10);
   const [progress, setProgress] = React.useState(0);
+  const[time2, setTime2] =useState(0);
   var steps = [0];
-  const [valor, setValor] = React.useState("");
+  const [valor, setValor] = React.useState(100);
+  const [valor2, setValor2] = React.useState(0);
+  const [ownDesign, setOwnDesign] = React.useState(false);
 
-  function handleAddValue(step: number, value: number) {
-    steps[step] = value;
-    let val = 0;
-    for (let i = 0; i < steps.length; i++) {
-      val = steps[i] + val;
-    }
-    let text = val.toString();
-    setValor(text);
-  }
   return (
     <>
       <Box w="1440px" mx="auto">
@@ -230,7 +226,7 @@ const Home: NextPage = () => {
           <Button
             onClick={() => {
               setChose(1);
-              handleAddValue(1, 400);
+              setValor(100);
             }}
             bg={chose == 1 ? primary : secondary}
             borderRadius="20px"
@@ -248,7 +244,7 @@ const Home: NextPage = () => {
           <Button
             onClick={() => {
               setChose(2);
-              handleAddValue(0, 200);
+              setValor(200);
             }}
             bg={chose == 2 ? primary : secondary}
             borderRadius="20px"
@@ -266,7 +262,7 @@ const Home: NextPage = () => {
           <Button
             onClick={() => {
               setChose(3);
-              handleAddValue(0, 100);
+              setValor(300);
             }}
             bg={chose == 3 ? primary : secondary}
             borderRadius="20px"
@@ -290,12 +286,15 @@ const Home: NextPage = () => {
           bg={primary}
           borderRadius="3px"
         />
-        <Box minH="30vh">
+        <Box minH="40vh">
           <StepeZero
             chose={chose}
             progress={progress}
             step={10}
             color={primary}
+            time={(temp) => setTime2(temp)}
+            price={(valor) => setValor2(valor)}
+            ownDesign={(own) => setOwnDesign(own)}
           />
           <StepOne
             step={20}
@@ -306,12 +305,11 @@ const Home: NextPage = () => {
             }}
           />
           <StepTwo progress={progress} colorPrimary={primary} step={30} />
-          <StepeExample
+          <StepeIntroduction
             progress={progress}
             step={0}
-            value={(step, value) => {
-              handleAddValue(step, value);
-            }}
+            primary={primary}
+            secondary={secondary}
           />
         </Box>
         <Flex h="auto" mb="3%">
@@ -340,7 +338,7 @@ const Home: NextPage = () => {
               Valor estimado:
             </Text>
             <Text textAlign="center" fontSize="20px" color={secondary}>
-              R$ {valor},00 reais
+              {ownDesign?"Fazer reunião": "R$"+(valor+valor2)+",00 reais" }
             </Text>
           </Box>
           <Box w="45%" px="3%">
@@ -348,7 +346,7 @@ const Home: NextPage = () => {
               Tempo estimado:
             </Text>
             <Text textAlign="center" fontSize="20px" color={secondary}>
-              {time} dias
+              {ownDesign?"Fazer Reunião" : (time+time2 >30? (time+time2)/20 : time+time2) + (time+time2 >30? "meses" : "dias")} {}
             </Text>
           </Box>
         </Flex>
