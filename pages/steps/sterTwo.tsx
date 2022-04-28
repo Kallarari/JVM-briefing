@@ -8,6 +8,7 @@ import {
   RadioGroup,
   Stack,
   Radio,
+  Checkbox,
 } from "@chakra-ui/react";
 import React, { useState } from "react";
 
@@ -29,14 +30,14 @@ export default function StepTwo({ progress, colorPrimary,step }: stepProps) {
         Assinale quais páginas(containers se for One-Page) você acha importante o seu site ter.
       </Text>
       <RadioGroup onChange={setValue} value={value}>
-        <Stack direction="row" justifyContent="space-between" my="3%">
-          <Radio value="1">Contato</Radio>
-          <Radio value="2">Quem somos</Radio>
-          <Radio value="3">Serviços</Radio>
-          <Radio value="4">Perguntas frequentes</Radio>
-          <Radio value="5">Termos e condições de uso</Radio>
-          <Radio value="6">Blog</Radio>
-          <Radio value='7' >Outro</Radio>
+        <Stack direction="row" justifyContent="space-between" my="3%" fontSize="30px" fontWeight="600" color="black">
+          <Checkbox value="1">Contato</Checkbox>
+          <Checkbox value="2">Quem somos</Checkbox>
+          <Checkbox value="3">Serviços</Checkbox>
+          <Checkbox value="4">Perguntas frequentes</Checkbox>
+          <Checkbox value="5">Termos e condições de uso</Checkbox>
+          <Checkbox value="6">Blog</Checkbox>
+          <Checkbox value='7' >Outro</Checkbox>
         </Stack>
       </RadioGroup>
       <InputGroup w="35%" mx="auto" display={value == '7'? "static": "none"}>

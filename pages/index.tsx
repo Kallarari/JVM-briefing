@@ -337,8 +337,19 @@ const Home: NextPage = () => {
             <Text textAlign="center" fontSize="20px" color={primary}>
               Valor estimado:
             </Text>
-            <Text textAlign="center" fontSize="20px" color={secondary}>
-              {ownDesign?"Fazer reunião": "R$"+(valor+valor2)+",00 reais" }
+            <Flex display={ownDesign?"none":"flex"}  mx="auto" w="max-content">
+            <Text mr="5px" alignSelf="end" textAlign="center" fontSize="14px" color={secondary} w="max-content">
+              Em 10x de  
+            </Text>
+            <Text textAlign="center" fontSize="20px" color={secondary} w="max-content">
+              {(" R$ "+(((valor+valor2)/10)*11)/10+",00 reais") }
+            </Text>
+            </Flex>
+            <Text textAlign="center" fontSize="14px" color={secondary} w="max-content" mx="auto" display={ownDesign?"none":"flex"}>
+              {" Ou a vista por "+(" R$ "+(valor+valor2)+",00 reais") }
+            </Text>
+            <Text textAlign="center" fontSize="20px" color={secondary} w="max-content" mx="auto" display={ownDesign?"flex":"none"}>
+            Fazer reunião
             </Text>
           </Box>
           <Box w="45%" px="3%">
@@ -346,7 +357,7 @@ const Home: NextPage = () => {
               Tempo estimado:
             </Text>
             <Text textAlign="center" fontSize="20px" color={secondary}>
-              {ownDesign?"Fazer Reunião" : (time+time2 >30? (time+time2)/20 : time+time2) + (time+time2 >30? "meses" : "dias")} {}
+              {ownDesign?"Fazer Reunião" : (time+time2 >20? (time+time2)/20 : time+time2) + (time+time2 >20? "meses" : "dias")} 
             </Text>
           </Box>
         </Flex>
