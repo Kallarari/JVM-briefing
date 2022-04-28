@@ -369,6 +369,12 @@ const Home: NextPage = () => {
             <Text>
               Ajude nos a melhorar sua experiência! Deixe um comentário.
             </Text>
+            <Text>
+              Ajude nos a melhorar sua experiência! Deixe um comentário.
+            </Text>
+            <Text>
+              Ajude nos a melhorar sua experiência! Deixe um comentário.
+            </Text>
           </Box>
         </Flex>
         <Box w="20%" mx="auto" my="3%">
@@ -385,5 +391,4 @@ const Home: NextPage = () => {
     </>
   );
 };
-
 export default Home;
