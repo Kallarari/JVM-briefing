@@ -24,7 +24,7 @@ async function connectToDatabase(uri: string) {
 export default async (request: NowRequest, response: NowResponse) => {
   const { email } = request.body;
 
-  const db = await connectToDatabase(process.env.MONGODB_URI);
+  const db = await connectToDatabase(process.env.MONGODB_URI!);
 
   const collection = db.collection('subscribers');
 
