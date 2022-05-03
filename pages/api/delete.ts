@@ -1,5 +1,5 @@
 import { NowRequest, NowResponse } from '@vercel/node'
-import { MongoClient, Db } from 'mongodb'
+import { MongoClient, Db, ObjectId } from 'mongodb'
 import url from 'url';
 
 let cachedDb: Db;
@@ -22,16 +22,13 @@ async function connectToDatabase(uri: string) {
 
 // eslint-disable-next-line import/no-anonymous-default-export
 export default async (request: NowRequest, response: NowResponse) => {
-  const { informs } = request.body;
-
+  const id:string = request.body;
+  
   const db = await connectToDatabase(process.env.MONGODB_URI!);
 
   const collection = db.collection('subscribers');
 
-  await collection.insertOne({
-    informs,
-    subscribedAt: new Date(),
-  })
+  await collection.deleteOne({'_id': new ObjectId(id)})
 
   return response.status(201).json({ ok: true });
 }

@@ -193,7 +193,7 @@ export default function StepeZero({
             <RadioGroup onChange={setValue} value={value}>
               <Stack my="3%" color={color}>
                 <Radio value="5" mx="auto">
-                  Design de interiores
+                  Design minimalista
                 </Radio>
               </Stack>
             </RadioGroup>
@@ -230,7 +230,7 @@ export default function StepeZero({
             <RadioGroup onChange={setValue} value={value}>
               <Stack my="3%" color={color}>
                 <Radio value="7" mx="auto">
-                  Site de banda
+                  Site de equipe
                 </Radio>
               </Stack>
             </RadioGroup>
@@ -276,7 +276,7 @@ export default function StepeZero({
             <RadioGroup onChange={setValue} value={value}>
               <Stack my="3%" color={color}>
                 <Radio value="9" mx="auto">
-                  Loja de vestuário
+                  Loja de produtos
                 </Radio>
               </Stack>
             </RadioGroup>
@@ -296,7 +296,7 @@ export default function StepeZero({
             <RadioGroup onChange={setValue} value={value}>
               <Stack my="3%" color={color}>
                 <Radio value="10" mx="auto">
-                  Mega store moda
+                  Mega store
                 </Radio>
               </Stack>
             </RadioGroup>
@@ -317,7 +317,7 @@ export default function StepeZero({
             <RadioGroup onChange={setValue} value={value}>
               <Stack my="3%" color={color}>
                 <Radio value="11" mx="auto">
-                  Mecânica e manutenção automotiva
+                  Loja de serviços
                 </Radio>
               </Stack>
             </RadioGroup>
@@ -337,7 +337,7 @@ export default function StepeZero({
             <RadioGroup onChange={setValue} value={value}>
               <Stack my="3%" color={color}>
                 <Radio value="12" mx="auto">
-                  Design de móveis
+                  loja minimalista
                 </Radio>
               </Stack>
             </RadioGroup>

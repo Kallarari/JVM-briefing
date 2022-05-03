@@ -1,20 +1,7 @@
-import {
-  Box,
-  Button,
-  Flex,
-  Text,
-  Image,
-  transition,
-  InputGroup,
-  InputLeftAddon,
-  Input,
-  Radio,
-  Stack,
-  RadioGroup,
-} from "@chakra-ui/react";
+import { Box, Button, Flex, Text, Image } from "@chakra-ui/react";
 import type { NextPage } from "next";
 import { Icon } from "@iconify/react";
-import React, { useEffect, useState } from "react";
+import React, { FormEvent, useEffect, useState } from "react";
 import StepOne from "./steps/stepOne";
 import StepTwo from "./steps/sterTwo";
 import StepeExample from "./steps/stepExample";
@@ -23,19 +10,25 @@ import Link from "next/link";
 import Explain from "./componnets/explain";
 import Benefits from "./componnets/benefits";
 import StepeIntroduction from "./steps/stepIntroduction";
-import { setValues } from "framer-motion/types/render/utils/setters";
+import StepeThree from "./steps/stepThree";
+import axios from "axios";
+import StepeFour from "./steps/stepFour";
 
 const Home: NextPage = () => {
   const [primary, setPrimary] = useState("#0079AE");
   const [secondary, setSecondary] = useState("#E68C26");
   const [chose, setChose] = React.useState(1);
-  const [time, setTime] = React.useState(10);
+  const [time, setTime] = React.useState(0);
   const [progress, setProgress] = React.useState(0);
-  const[time2, setTime2] =useState(0);
-  var steps = [0];
-  const [valor, setValor] = React.useState(100);
+  const [time2, setTime2] = useState(0);
+  const [valor, setValor] = React.useState(0);
   const [valor2, setValor2] = React.useState(0);
   const [ownDesign, setOwnDesign] = React.useState(false);
+  //envio de informações para banco de dados
+  const [info, setInfo] = React.useState({ name: "", email: "", numer: 0 });
+  function handleSendInformation() {
+    axios.post("/api/subscribe", { informs: info });
+  }
 
   return (
     <>
@@ -226,7 +219,7 @@ const Home: NextPage = () => {
           <Button
             onClick={() => {
               setChose(1);
-              setValor(100);
+              setValor2(1700);
             }}
             bg={chose == 1 ? primary : secondary}
             borderRadius="20px"
@@ -244,7 +237,7 @@ const Home: NextPage = () => {
           <Button
             onClick={() => {
               setChose(2);
-              setValor(200);
+              setValor2(1100);
             }}
             bg={chose == 2 ? primary : secondary}
             borderRadius="20px"
@@ -262,7 +255,7 @@ const Home: NextPage = () => {
           <Button
             onClick={() => {
               setChose(3);
-              setValor(300);
+              setValor2(7500);
             }}
             bg={chose == 3 ? primary : secondary}
             borderRadius="20px"
@@ -310,6 +303,16 @@ const Home: NextPage = () => {
             step={0}
             primary={primary}
             secondary={secondary}
+            infor={(n, e, num) => {
+              setInfo({ name: n, email: e, numer: num });
+            }}
+          />
+          <StepeThree progress={progress} step={40} />
+          <StepeFour
+            progress={progress}
+            step={50}
+            primary={primary}
+            secondary={secondary}
           />
         </Box>
         <Flex h="auto" mb="3%">
@@ -326,6 +329,9 @@ const Home: NextPage = () => {
             mx="auto"
             onClick={() => {
               setProgress(progress + 10);
+              if (progress === 0) {
+                handleSendInformation();
+              }
             }}
             isDisabled={progress == 100 ? true : false}
           >
@@ -337,19 +343,49 @@ const Home: NextPage = () => {
             <Text textAlign="center" fontSize="20px" color={primary}>
               Valor estimado:
             </Text>
-            <Flex display={ownDesign?"none":"flex"}  mx="auto" w="max-content">
-            <Text mr="5px" alignSelf="end" textAlign="center" fontSize="14px" color={secondary} w="max-content">
-              Em 10x de  
-            </Text>
-            <Text textAlign="center" fontSize="20px" color={secondary} w="max-content">
-              {(" R$ "+(((valor+valor2)/10)*11)/10+",00 reais") }
-            </Text>
+            <Flex
+              display={ownDesign ? "none" : "flex"}
+              mx="auto"
+              w="max-content"
+            >
+              <Text
+                mr="5px"
+                alignSelf="end"
+                textAlign="center"
+                fontSize="14px"
+                color={secondary}
+                w="max-content"
+              >
+                Em 10x de
+              </Text>
+              <Text
+                textAlign="center"
+                fontSize="20px"
+                color={secondary}
+                w="max-content"
+              >
+                {" R$ " + (((valor + valor2) / 10) * 11) / 10 + ",00 reais"}
+              </Text>
             </Flex>
-            <Text textAlign="center" fontSize="14px" color={secondary} w="max-content" mx="auto" display={ownDesign?"none":"flex"}>
-              {" Ou a vista por "+(" R$ "+(valor+valor2)+",00 reais") }
+            <Text
+              textAlign="center"
+              fontSize="14px"
+              color={secondary}
+              w="max-content"
+              mx="auto"
+              display={ownDesign ? "none" : "flex"}
+            >
+              {" Ou a vista por " + (" R$ " + (valor + valor2) + ",00 reais")}
             </Text>
-            <Text textAlign="center" fontSize="20px" color={secondary} w="max-content" mx="auto" display={ownDesign?"flex":"none"}>
-            Fazer reunião
+            <Text
+              textAlign="center"
+              fontSize="20px"
+              color={secondary}
+              w="max-content"
+              mx="auto"
+              display={ownDesign ? "flex" : "none"}
+            >
+              Fazer reunião
             </Text>
           </Box>
           <Box w="45%" px="3%">
@@ -357,7 +393,10 @@ const Home: NextPage = () => {
               Tempo estimado:
             </Text>
             <Text textAlign="center" fontSize="20px" color={secondary}>
-              {ownDesign?"Fazer Reunião" : (time+time2 >20? (time+time2)/20 : time+time2) + (time+time2 >20? "meses" : "dias")} 
+              {ownDesign
+                ? "Fazer Reunião"
+                : (time + time2 > 20 ? (time + time2) / 20 : time + time2) +
+                  (time + time2 > 20 ? "meses" : "dias")}
             </Text>
           </Box>
         </Flex>
@@ -366,12 +405,6 @@ const Home: NextPage = () => {
       <Box w="1440px" mx="auto">
         <Flex justifyContent="space-between">
           <Box mx="auto">
-            <Text>
-              Ajude nos a melhorar sua experiência! Deixe um comentário.
-            </Text>
-            <Text>
-              Ajude nos a melhorar sua experiência! Deixe um comentário.
-            </Text>
             <Text>
               Ajude nos a melhorar sua experiência! Deixe um comentário.
             </Text>
