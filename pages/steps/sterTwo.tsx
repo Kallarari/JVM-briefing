@@ -10,14 +10,15 @@ import {
   Radio,
   Checkbox,
 } from "@chakra-ui/react";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 type stepProps = {
   progress: number;
   colorPrimary: string;
   step: number;
+  PageInfor: (checkedItems:boolean[]) => void;
 };
-export default function StepTwo({ progress, colorPrimary, step }: stepProps) {
+export default function StepTwo({ progress, colorPrimary, step,PageInfor }: stepProps) {
   const [checkedItems, setCheckedItems] = React.useState([
     false,
     false,
@@ -27,6 +28,9 @@ export default function StepTwo({ progress, colorPrimary, step }: stepProps) {
     false,
     false,
   ]);
+  useEffect(() => {
+    PageInfor(checkedItems);
+  }, [checkedItems]);
   return (
     <Box
       w="100%"
@@ -40,7 +44,7 @@ export default function StepTwo({ progress, colorPrimary, step }: stepProps) {
         fontWeight="600"
         color={colorPrimary}
       >
-        Assinale quais características você acha importante
+        Assinale quais informações você acha importante
         o seu site ter.
       </Text>
       <RadioGroup>
@@ -63,7 +67,7 @@ export default function StepTwo({ progress, colorPrimary, step }: stepProps) {
                 checkedItems[4],
                 checkedItems[5],
                 checkedItems[6],
-              ])
+              ])              
             }
           >
             Contato

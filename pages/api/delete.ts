@@ -1,4 +1,4 @@
-import { NowRequest, NowResponse } from '@vercel/node'
+import { NowRequest, NowResponse } from '@vercel/node';
 import { MongoClient, Db, ObjectId } from 'mongodb'
 import url from 'url';
 

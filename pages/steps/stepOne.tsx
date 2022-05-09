@@ -1,14 +1,7 @@
-import {
-  Box,
-  Flex,
-  Input,
-  InputGroup,
-  InputLeftAddon,
-  useColorMode,
-  Text,
-} from "@chakra-ui/react";
+import { Box, Flex, Text } from "@chakra-ui/react";
 import React, { useState } from "react";
 import Colors from "../componnets/colors";
+import Hue from "react-color/lib/components/hue/Hue";
 
 type stepProps = {
   progress: number;
@@ -16,7 +9,8 @@ type stepProps = {
   step: number;
 };
 export default function StepOne({ progress, changeColor, step }: stepProps) {
-  const [color, setColor] = useState("");
+  const [color, setColor] = useState("#0079AE");
+  const [color2, setColor2] = useState("#E68C26");
   const colors = [
     {
       cor1: "#032543",
@@ -53,37 +47,85 @@ export default function StepOne({ progress, changeColor, step }: stepProps) {
   ];
   return (
     <>
-      <Text
-        display={progress == step ? "static" : "none"}
-        textAlign="center"
-        color={color}
-        fontSize="25px"
-        fontWeight="600"
-        my="20px"
-      >
-        Escolha a paleta de cores que você mais gosta.
-      </Text>
-      <Flex
-        justifyContent="space-between"
-        my="3%"
-        display={progress == step ? "Flex" : "none"}
-        transition="1s"
-        h="100px"
-        w="80%"
-        mx="auto"
-      >
-        {colors.map((item) => (
-          <Colors
-            key=""
-            color1={item.cor1}
-            color2={item.cor2}
-            changeColor={(color1, color2) => {
-              changeColor(color1, color2);
-              setColor(color1);
-            }}
-          />
-        ))}
-      </Flex>
+      <Box display={progress == step ? "static" : "none"}>
+        <Text
+          textAlign="center"
+          color={color}
+          fontSize="25px"
+          fontWeight="600"
+          my="20px"
+        >
+          Escolha a paleta de cores que você mais gosta.
+        </Text>
+        <Flex
+          justifyContent="space-between"
+          mt="3%"
+          display={progress == step ? "Flex" : "none"}
+          transition="1s"
+          h="100px"
+          w="80%"
+          mx="auto"
+        >
+          {colors.map((item) => (
+            <Colors
+              key=""
+              color1={item.cor1}
+              color2={item.cor2}
+              changeColor={(color1, color2) => {
+                changeColor(color1, color2);
+                setColor(color1);
+              }}
+            />
+          ))}
+        </Flex>
+        <Text
+          textAlign="center"
+          color={color}
+          fontSize="25px"
+          fontWeight="600"
+          mt="20px"
+        >
+          Ou crie sua própria palheta de cor.
+        </Text>
+        <Flex justifyContent="space-around">
+          <Box>
+            <Text
+              textAlign="center"
+              color={color}
+              fontSize="25px"
+              fontWeight="600"
+              my="20px"
+            >
+              Cor Primária
+            </Text>
+            <Hue
+              color={color}
+              onChangeComplete={(e) => {
+                setColor(e.hex);
+                changeColor(e.hex, color2);
+              }}
+            />
+          </Box>
+          <Box>
+            <Text
+              textAlign="center"
+              color={color2}
+              fontSize="25px"
+              fontWeight="600"
+              my="20px"
+            >
+              Cor Secundária
+            </Text>
+            <Hue
+              color={color2}
+              onChangeComplete={(e) => {
+                setColor2(e.hex);
+                changeColor(color, e.hex);
+              }}
+            />
+          </Box>
+        </Flex>
+      </Box>
     </>
   );
 }

@@ -13,23 +13,66 @@ import StepeIntroduction from "./steps/stepIntroduction";
 import StepeThree from "./steps/stepThree";
 import axios from "axios";
 import StepeFour from "./steps/stepFour";
+import { ThemeContext } from "@emotion/react";
 
 const Home: NextPage = () => {
+  var infor: any;
   const [primary, setPrimary] = useState("#0079AE");
   const [secondary, setSecondary] = useState("#E68C26");
   const [chose, setChose] = React.useState(1);
   const [time, setTime] = React.useState(0);
   const [progress, setProgress] = React.useState(0);
+  const [witchDesign, setWitchDesign] = React.useState(String);
   const [time2, setTime2] = useState(0);
   const [valor, setValor] = React.useState(0);
   const [valor2, setValor2] = React.useState(0);
   const [ownDesign, setOwnDesign] = React.useState(false);
+  const [pageInforms, setPageInforms] = React.useState([
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+  ]);
+  const [pageFunctions, setPageFunctions] = React.useState([false, false]);
   //envio de informações para banco de dados
-  const [info, setInfo] = React.useState({ name: "", email: "", numer: 0 });
+  const [info, setInfo] = React.useState({
+    name: "",
+    email: "",
+    numer: 0,
+    day: 0,
+    hour: 0,
+    month: 0,
+  });
   function handleSendInformation() {
-    axios.post("/api/subscribe", { informs: info });
+    axios.post("/api/subscribe", { informs: infor });
   }
-
+  useEffect(() => {
+    infor = {
+      name: info.name,
+      email: info.email,
+      numer: info.numer,
+      day: info.day,
+      hour: info.hour,
+      month: info.month,
+      witchDesign: witchDesign,
+      ownDesign: ownDesign,
+      colorPrimary: primary,
+      colorSecondary: secondary,
+      pageInformas: pageInforms,
+      pageFunctions: pageFunctions,
+    };
+  }, [
+    info,
+    witchDesign,
+    ownDesign,
+    primary,
+    secondary,
+    pageInforms,
+    pageFunctions,
+  ]);
   return (
     <>
       <Box w="1440px" mx="auto">
@@ -288,6 +331,7 @@ const Home: NextPage = () => {
             time={(temp) => setTime2(temp)}
             price={(valor) => setValor2(valor)}
             ownDesign={(own) => setOwnDesign(own)}
+            witchDesign={(w) => setWitchDesign(w)}
           />
           <StepOne
             step={20}
@@ -297,23 +341,51 @@ const Home: NextPage = () => {
               setSecondary(second);
             }}
           />
-          <StepTwo progress={progress} colorPrimary={primary} step={30} />
+          <StepTwo
+            progress={progress}
+            colorPrimary={primary}
+            step={30}
+            PageInfor={(informs) => setPageInforms(informs)}
+          />
           <StepeIntroduction
             progress={progress}
             step={0}
             primary={primary}
             secondary={secondary}
-            infor={(n, e, num) => {
-              setInfo({ name: n, email: e, numer: num });
-            }}
           />
-          <StepeThree progress={progress} step={40} />
-          <StepeFour
+          <StepeThree
             progress={progress}
-            step={50}
-            primary={primary}
-            secondary={secondary}
+            step={40}
+            colorPrimary={primary}
+            FunctionsInfor={(s, p) => setPageFunctions([s, p])}
           />
+          <ThemeContext.Provider value={ThemeContext}>
+            <StepeFour
+              progress={progress}
+              step={50}
+              primary={primary}
+              secondary={secondary}
+              infor={(n, e, num, d, h, m) => {
+                setInfo({
+                  name: n,
+                  email: e,
+                  numer: num,
+                  day: d,
+                  hour: h,
+                  month: m,
+                });
+              }}
+            />
+            <Button
+              display={progress == 50 ? "static" : "none"}
+              bg="lightblue"
+              borderRadius="8px"
+              p="10px"
+              onClick={() => handleSendInformation()}
+            >
+              send
+            </Button>
+          </ThemeContext.Provider>
         </Box>
         <Flex h="auto" mb="3%">
           <Button
@@ -325,20 +397,7 @@ const Home: NextPage = () => {
           >
             Anterior
           </Button>
-          <Button
-            mx="auto"
-            onClick={() => {
-              setProgress(progress + 10);
-              if (progress === 0) {
-                handleSendInformation();
-              }
-            }}
-            isDisabled={progress == 100 ? true : false}
-          >
-            Próximo
-          </Button>
-        </Flex>
-        <Flex justifyContent="space-between" w="40%" mx="auto">
+
           <Box px="3%" w="45%">
             <Text textAlign="center" fontSize="20px" color={primary}>
               Valor estimado:
@@ -399,6 +458,17 @@ const Home: NextPage = () => {
                   (time + time2 > 20 ? "meses" : "dias")}
             </Text>
           </Box>
+          <Button
+            mx="auto"
+            onClick={() => {
+              setProgress(progress + 10);
+              if (progress === 0) {
+              }
+            }}
+            isDisabled={progress == 100 ? true : false}
+          >
+            Próximo
+          </Button>
         </Flex>
       </Box>
       <Benefits primary={primary} secondary={secondary} chose={chose} />

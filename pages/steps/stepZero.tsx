@@ -22,6 +22,7 @@ type stepExampleProps = {
   price: (value: number) => void;
   time: (time: number) => void;
   ownDesign: (own: boolean) => void;
+  witchDesign: (n: string) => void;
 };
 export default function StepeZero({
   chose,
@@ -31,10 +32,12 @@ export default function StepeZero({
   price,
   time,
   ownDesign,
+  witchDesign,
 }: stepExampleProps) {
   const [value, setValue] = useState("");
   useEffect(() => {
     ownDesign(false);
+    witchDesign(value);
     if (value == "1") {
       price(3100);
       time(30);

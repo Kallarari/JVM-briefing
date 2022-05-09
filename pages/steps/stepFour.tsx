@@ -1,126 +1,114 @@
 import { Box, Button, Flex, Input, InputGroup, Text } from "@chakra-ui/react";
-import React, { FormEvent, useState } from "react";
+import React, { FormEvent, useContext, useEffect, useState } from "react";
 import axios from "axios";
+import Scheduling from "../componnets/scheduling";
+import { info } from "console";
 
 type stepFourProps = {
   progress: number;
   step: number;
   primary: string;
   secondary: string;
+  infor: (name:string, email:string, numer: number, day:number, hour:number,month:number) => void;
 };
 export default function StepeFour({
   progress,
   step,
   primary,
   secondary,
+  infor
 }: stepFourProps) {
-  const [number, setNumber] = useState("");
+  const [number, setNumber] = useState(Number);
+  const [hour, setHour] = useState(Number);
+  const [month, setMonth] = useState(Number);
+  const [day, setDay] = useState(Number);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
-  const [id, setID] = useState("");
-  const [info, setInfo] = useState<any>([]);
-  function handleReadDB() {
-    axios.get("/api/read").then((resp) => {
-      setInfo(resp.data.result);
-    });
-  }
-  function handleDelete() {
-    axios.delete("/api/delete",{data:{id:id}});
-  }
-
+  useEffect(() => {
+    infor(name, email, number, day, hour, month);
+  }, [number, name, email]);
   return (
     <Box my="3%" display={progress == step ? "block" : "none"}>
-      <Box my="3%" display={progress == step ? "Flex" : "none"}>
-        <Text>Exibindo as informações do banco</Text>
-        <Button onClick={handleReadDB}> Banco de dados</Button>
-        <Text>
-          {info.map((item: any) => (
-            <>
-              {/* 
-              <Text key="">{JSON.stringify(item)}</Text> */}
-              <Text>
-                INFORMS<br></br>
-              </Text>
-              <Text>{item._id}</Text>
-              <Flex justifyContent="space-between">
-                <Text>{item.informs?.name}</Text>
-                <Text>{item.informs?.email}</Text>
-                <Text>{item.informs?.numer}</Text>
-                <Button bg="red" onClick={()=>{handleDelete();setID(item._id)}}>Delete</Button>
-              </Flex>
-            </>
-          ))}
-        </Text>
-      </Box>
       <Text
-        fontFamily="body"
-        my="1%"
         textAlign="center"
-        fontSize="40px"
-        color={primary}
-        fontWeight="700"
-      >
-        Update and delete from DB
-      </Text>
-      <Text
-        fontFamily="body"
-        my="1%"
-        textAlign="center"
-        fontSize="20px"
+        fontSize="25px"
         color={secondary}
         fontWeight="600"
       >
-        Update
+        Parabéns
       </Text>
       <Text
-        fontFamily="body"
         textAlign="center"
-        fontSize="30px"
+        fontSize="20px"
         color={primary}
-        fontWeight="600"
-        my="2%"
+        fontWeight="500"
+        mb="30px"
       >
-        Insira suas informações abaixo para continuarmos
+        Você terminou o Briefing da JVM!!
       </Text>
-      <Flex
-        justifyContent="space-between"
-        as="form"
-      >
-        <InputGroup w="30%" mx="auto" display="block">
-          <Text fontSize="20px" color={primary} mb="3%">
-            Nome
+      <Flex justifyContent="space-around">
+        <Box>
+          <Text
+            textAlign="center"
+            fontSize="20px"
+            color={primary}
+            fontWeight="500"
+            mb="30px"
+          >
+            Agende sua reunião.
           </Text>
-          <Input
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            type="text"
-            placeholder="Elon Musk"
-          />
-        </InputGroup>
-        <InputGroup w="30%" mx="auto" display="block">
-          <Text fontSize="20px" color={primary} mb="3%">
-            E-mail
+          <Scheduling
+            color1={primary}
+            color2={secondary}
+            date={(d, h, m) => {infor(name, email, number, d, h, m);}}
+          ></Scheduling>
+        </Box>
+        <Box>
+          <Text
+            textAlign="center"
+            fontSize="20px"
+            color={primary}
+            fontWeight="500"
+            mb="30px"
+          >
+            Preencha com suas informações.
           </Text>
-          <Input
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            type="email"
-            placeholder="example@gmail.com"
-          />
-        </InputGroup>
-        <InputGroup w="30%" mx="auto" display="block">
-          <Text fontSize="20px" color={primary} mb="3%">
-            Telefone
-          </Text>
-          <Input
-            value={number}
-            onChange={(e) => setNumber(e.target.value)}
-            type="number"
-            placeholder="00 9 9999-9999"
-          />
-        </InputGroup>
+
+          <InputGroup w="90%" mx="auto" display="block" mb="10%">
+            <Text fontSize="20px" color={primary} mb="3%" textAlign="center">
+              Nome
+            </Text>
+            <Input
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              type="text"
+              placeholder="Elon Musk"
+            />
+          </InputGroup>
+          <InputGroup w="90%" mx="auto" display="block" mb="10%">
+            <Text fontSize="20px" color={primary} mb="3%" textAlign="center">
+              E-mail
+            </Text>
+            <Input
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              type="email"
+              placeholder="example@gmail.com"
+            />
+          </InputGroup>
+          <InputGroup w="90%" mx="auto" display="block">
+            <Text fontSize="20px" color={primary} mb="3%" textAlign="center">
+              Telefone
+            </Text>
+            <Input
+              value={number}
+              onChange={(e) => setNumber(e.target.valueAsNumber)}
+              type="number"
+              placeholder="00 9 9999-9999"
+            />
+          </InputGroup>
+        </Box>
       </Flex>
-      <Button type="submit">update</Button>
     </Box>
   );
 }
