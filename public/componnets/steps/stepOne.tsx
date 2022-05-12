@@ -1,6 +1,6 @@
 import { Box, Flex, Text } from "@chakra-ui/react";
 import React, { useState } from "react";
-import Colors from "../componnets/colors";
+import Colors from "../colors";
 import Hue from "react-color/lib/components/hue/Hue";
 import Chrome from "react-color/lib/components/chrome/Chrome";
 

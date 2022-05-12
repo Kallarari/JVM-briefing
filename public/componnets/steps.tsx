@@ -15,13 +15,13 @@ type HeaderSettingsProps = {
   secondary:string;
 };
 
-export const Steps = ({
+export default function Steps({
   steps,
   onCurrent,
   position,
   primary,
   secondary,
-}: HeaderSettingsProps) => {
+}: HeaderSettingsProps) {
   const [current, setCurrent] = useState(position);
   function handleColor(key: number) {
     if (key < current) {
@@ -42,7 +42,6 @@ export const Steps = ({
     width = width / 6;
     width = (width * (current==2?(current-0.05*current):current==3?(current-0.07*current):current==4?(current-0.05*current):current));
     let text = width.toString();
-    console.log(text, current, steps.length);
     return text + '%';
   }
   return (

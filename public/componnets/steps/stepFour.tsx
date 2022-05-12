@@ -1,7 +1,7 @@
 import { Box, Button, Flex, Input, InputGroup, Text } from "@chakra-ui/react";
 import React, { FormEvent, useContext, useEffect, useState } from "react";
 import axios from "axios";
-import Scheduling from "../componnets/scheduling";
+import Scheduling from "../scheduling";
 import { info } from "console";
 
 type stepFourProps = {
