@@ -2,6 +2,7 @@ import { Box, Flex, Text } from "@chakra-ui/react";
 import React, { useState } from "react";
 import Colors from "../componnets/colors";
 import Hue from "react-color/lib/components/hue/Hue";
+import Chrome from "react-color/lib/components/chrome/Chrome";
 
 type stepProps = {
   progress: number;
@@ -78,52 +79,53 @@ export default function StepOne({ progress, changeColor, step }: stepProps) {
             />
           ))}
         </Flex>
-        <Text
-          textAlign="center"
-          color={color}
-          fontSize="25px"
-          fontWeight="600"
-          mt="20px"
-        >
-          Ou crie sua própria palheta de cor.
-        </Text>
-        <Flex justifyContent="space-around">
-          <Box>
+        <Flex justifyContent="space-between">
+          <Box w="48%">
             <Text
               textAlign="center"
               color={color}
               fontSize="25px"
               fontWeight="600"
-              my="20px"
+              mb="20px"
             >
-              Cor Primária
+              Ou escolha sua própria paleta
             </Text>
-            <Hue
-              color={color}
-              onChangeComplete={(e) => {
-                setColor(e.hex);
-                changeColor(e.hex, color2);
-              }}
-            />
+            <Flex justifyContent="space-around">
+              <Box>
+                <Chrome
+                  color={color}
+                  onChangeComplete={(e) => {
+                    setColor(e.hex);
+                    changeColor(e.hex, color2);
+                  }}
+                />
+              </Box>
+              <Box>
+                <Colors color1={color} color2={color2} changeColor={() => {}} />
+              </Box>
+              <Box>
+                <Chrome
+                  color={color2}
+                  onChangeComplete={(e) => {
+                    setColor2(e.hex);
+                    changeColor(color, e.hex);
+                  }}
+                />
+              </Box>
+            </Flex>
           </Box>
-          <Box>
+            <Box w="48%">
+              
             <Text
               textAlign="center"
-              color={color2}
+              color={color}
               fontSize="25px"
               fontWeight="600"
-              my="20px"
+              mb="20px"
             >
-              Cor Secundária
+              Aproveite e faça sua edentidade visual com a<br /> EG design
             </Text>
-            <Hue
-              color={color2}
-              onChangeComplete={(e) => {
-                setColor2(e.hex);
-                changeColor(color, e.hex);
-              }}
-            />
-          </Box>
+            </Box>
         </Flex>
       </Box>
     </>

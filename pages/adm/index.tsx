@@ -29,33 +29,6 @@ export default function Adm() {
     });
   }, []);
   useEffect(() => {
-    if (info.informs?.witchDesign == "1") {
-      setImage("/siteModel1.png");
-    } else if (info.informs?.witchDesign == "2") {
-      setImage("/siteModel2.png");
-    } else if (info.informs?.witchDesign == "3") {
-      setImage("/siteModel3.png");
-    } else if (info.informs?.witchDesign == "4") {
-      setImage("/siteModel4.png");
-    } else if (info.informs?.witchDesign == "5") {
-      setImage("/siteModel5.png");
-    } else if (info.informs?.witchDesign == "6") {
-      setImage("/siteModel6.png");
-    } else if (info.informs?.witchDesign == "7") {
-      setImage("/siteModel7.png");
-    } else if (info.informs?.witchDesign == "8") {
-      setImage("/siteModel8.png");
-    } else if (info.informs?.witchDesign == "8") {
-      setImage("/siteModel9.png");
-    } else if (info.informs?.witchDesign == "9") {
-      setImage("/siteModel10.png");
-    } else if (info.informs?.witchDesign == "10") {
-      setImage("/siteModel11.png");
-    } else if (info.informs?.witchDesign == "11") {
-      setImage("/siteModel12.png");
-    } else if (info.informs?.witchDesign == "12") {
-      setImage("/siteModel13.png");
-    }
     setInfos(info.informs?.pageInformas);
   }, [info]);
   async function handleDelete() {

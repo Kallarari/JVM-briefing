@@ -98,6 +98,7 @@ export default function StepeZero({
           justifyContent="space-between"
           my="3%"
           display={chose === 1 ? "Flex" : "none"}
+          minH="280px"
         >
           <Box
             cursor="pointer"

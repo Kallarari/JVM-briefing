@@ -29,23 +29,6 @@ export default function StepeFour({
   }, [number, name, email]);
   return (
     <Box my="3%" display={progress == step ? "block" : "none"}>
-      <Text
-        textAlign="center"
-        fontSize="25px"
-        color={secondary}
-        fontWeight="600"
-      >
-        Parabéns
-      </Text>
-      <Text
-        textAlign="center"
-        fontSize="20px"
-        color={primary}
-        fontWeight="500"
-        mb="30px"
-      >
-        Você terminou o Briefing da JVM!!
-      </Text>
       <Flex justifyContent="space-around">
         <Box>
           <Text
