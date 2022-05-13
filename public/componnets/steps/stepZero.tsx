@@ -17,24 +17,25 @@ import React, { useEffect, useState } from "react";
 type stepExampleProps = {
   progress: number;
   color: string;
+  color2: string;
   step: number;
-  chose: number;
   price: (value: number) => void;
   time: (time: number) => void;
   ownDesign: (own: boolean) => void;
   witchDesign: (n: string) => void;
 };
 export default function StepeZero({
-  chose,
   progress,
   step,
   color,
+  color2,
   price,
   time,
   ownDesign,
   witchDesign,
 }: stepExampleProps) {
   const [value, setValue] = useState("");
+  const [chose, setChose] = useState(1);
   useEffect(() => {
     ownDesign(false);
     witchDesign(value);
@@ -94,9 +95,64 @@ export default function StepeZero({
   return (
     <>
       <Box display={progress == step ? "block" : "none"}>
+      <Flex
+          justifyContent="space-around"
+          my="4%"
+        >
+          <Button
+            onClick={() => {
+              setChose(1);
+            }}
+            bg={chose == 1 ? color : color2}
+            borderRadius="20px"
+            w="20%"
+            color="white"
+            transition=".5s"
+            _hover={{
+              width: "23%",
+              transition: ".5s",
+              boxShadow: "2px 5px 9px #888888",
+            }}
+          >
+            Site institucional
+          </Button>
+          <Button
+            onClick={() => {
+              setChose(2);
+            }}
+            bg={chose == 2 ? color : color2}
+            borderRadius="20px"
+            w="20%"
+            color="white"
+            transition=".5s"
+            _hover={{
+              width: "23%",
+              transition: ".5s",
+              boxShadow: "2px 5px 9px #888888",
+            }}
+          >
+            One-Page
+          </Button>
+          <Button
+            onClick={() => {
+              setChose(3);
+            }}
+            bg={chose == 3 ? color : color2}
+            borderRadius="20px"
+            w="20%"
+            color="white"
+            transition=".5s"
+            _hover={{
+              width: "23%",
+              transition: ".5s",
+              boxShadow: "2px 5px 9px #888888",
+            }}
+          >
+            E-commerce
+          </Button>
+        </Flex>
         <Flex
           justifyContent="space-between"
-          my="3%"
           display={chose === 1 ? "Flex" : "none"}
           minH="280px"
         >
@@ -185,8 +241,8 @@ export default function StepeZero({
         </Flex>
         <Flex
           justifyContent="space-between"
-          my="3%"
           display={chose === 2 ? "Flex" : "none"}
+          minH="280px"
         >
           <Box
             cursor="pointer"
@@ -268,8 +324,8 @@ export default function StepeZero({
         </Flex>
         <Flex
           justifyContent="space-between"
-          my="3%"
           display={chose === 3 ? "Flex" : "none"}
+          minH="280px"
         >
           <Box
             cursor="pointer"

@@ -16,8 +16,17 @@ import StepeFour from "../public/componnets/steps/stepFour";
 import { ThemeContext } from "@emotion/react";
 import LastStep from "../public/componnets/steps/lastStep";
 import Steps from "../public/componnets/steps";
+import * as yup from "yup";
+
+
 
 const Home: NextPage = () => {
+let schema = yup.object().shape({
+  nome: yup.string().required(),
+  email: yup.string().email().required(),
+  number: yup.number().required().positive().integer(),
+});
+
   var infor: any;
   const [primary, setPrimary] = useState("#0079AE");
   const [secondary, setSecondary] = useState("#E68C26");
@@ -53,34 +62,34 @@ const Home: NextPage = () => {
   }
   const steps = [
     {
-      name:"Introcução",
-      icon:"fluent:arrow-enter-20-regular"
+      name: "Introcução",
+      icon: "fluent:arrow-enter-20-regular",
     },
     {
-      name:"Modelo",
-      icon:"fluent:design-ideas-16-regular"
+      name: "Modelo",
+      icon: "fluent:design-ideas-16-regular",
     },
     {
-      name:"Cor",
-      icon:"fluent:paint-brush-16-regular"
+      name: "Cor",
+      icon: "fluent:paint-brush-16-regular",
     },
     {
-      name:"Páginas",
-      icon:"entypo:documents"
+      name: "Páginas",
+      icon: "entypo:documents",
     },
     {
-      name:"Funcionalidades",
-      icon:"ph:user-circle-gear"
+      name: "Funcionalidades",
+      icon: "ph:user-circle-gear",
     },
     {
-      name:"Agendamento",
-      icon:"bi:table"
+      name: "Agendamento",
+      icon: "bi:table",
     },
     {
-      name:"Finalizado",
-      icon:"ant-design:check-circle-outlined"
+      name: "Finalizado",
+      icon: "ant-design:check-circle-outlined",
     },
-  ]
+  ];
   useEffect(() => {
     infor = {
       name: info.name,
@@ -107,7 +116,13 @@ const Home: NextPage = () => {
   ]);
   return (
     <>
-      <Box mx="auto" position="absolute" top={progress>9?"-5%":"-2%"} transition="2s" w="100%">
+      <Box
+        mx="auto"
+        position="absolute"
+        top={progress > 9 ? "-3%" : "0%"}
+        transition="2s"
+        w="100%"
+      >
         <Flex
           py="25px"
           justifyContent="space-between"
@@ -173,72 +188,24 @@ const Home: NextPage = () => {
         </Box>
       </Box>
       <Box w="1440px" mx="auto">
-      <Flex justifyContent="space-around" my="4%" position="relative" pt={progress>9?"3%":"10%"} transition="2s">
-        <Box
-          bg={primary}
-          position="absolute"
-          transform="rotate(45deg)"
-          w="300px"
-          h="700px"
-          left="-17%"
-          bottom="-80%"
-          zIndex="-1"
-        />
-        <Button
-          onClick={() => {
-            setChose(1);
-            setValor2(1700);
-          }}
-          bg={chose == 1 ? primary : secondary}
-          borderRadius="20px"
-          w="20%"
-          color="white"
-          transition=".5s"
-          _hover={{
-            width: "23%",
-            transition: ".5s",
-            boxShadow: "2px 5px 9px #888888",
-          }}
+        <Flex
+          justifyContent="space-around"
+          position="relative"
+          pt={progress > 9 ? "5%" : "11%"}
+          transition="2s"
         >
-          Site institucional
-        </Button>
-        <Button
-          onClick={() => {
-            setChose(2);
-            setValor2(1100);
-          }}
-          bg={chose == 2 ? primary : secondary}
-          borderRadius="20px"
-          w="20%"
-          color="white"
-          transition=".5s"
-          _hover={{
-            width: "23%",
-            transition: ".5s",
-            boxShadow: "2px 5px 9px #888888",
-          }}
-        >
-          One-Page
-        </Button>
-        <Button
-          onClick={() => {
-            setChose(3);
-            setValor2(7500);
-          }}
-          bg={chose == 3 ? primary : secondary}
-          borderRadius="20px"
-          w="20%"
-          color="white"
-          transition=".5s"
-          _hover={{
-            width: "23%",
-            transition: ".5s",
-            boxShadow: "2px 5px 9px #888888",
-          }}
-        >
-          E-commerce
-        </Button>
-      </Flex>{/* 
+          <Box
+            bg={primary}
+            position="absolute"
+            transform="rotate(45deg)"
+            w="300px"
+            h="700px"
+            left="-17%"
+            bottom="-80%"
+            zIndex="-1"
+          />
+        </Flex>
+        {/* 
       <Box w="100%" h="10px" bg={secondary} borderRadius="3px"></Box>
       <Box
         mt="-10px"
@@ -247,44 +214,52 @@ const Home: NextPage = () => {
         bg={primary}
         borderRadius="3px"
       /> */}
-      <Steps primary={primary} secondary={secondary} steps={steps} position={progress/10} onCurrent={(c)=>{setProgress(c*10)}}  />
-      <Box minH={progress==0?"40vh":"55vh"}>
-        <StepeZero
-          chose={chose}
-          progress={progress}
-          step={10}
-          color={primary}
-          time={(temp) => setTime2(temp)}
-          price={(valor) => setValor2(valor)}
-          ownDesign={(own) => setOwnDesign(own)}
-          witchDesign={(w) => setWitchDesign(w)}
-        />
-        <StepOne
-          step={20}
-          progress={progress}
-          changeColor={(color, second) => {
-            setPrimary(color);
-            setSecondary(second);
-          }}
-        />
-        <StepTwo
-          progress={progress}
-          colorPrimary={primary}
-          step={30}
-          PageInfor={(informs) => setPageInforms(informs)}
-        />
-        <StepeIntroduction
-          progress={progress}
-          step={0}
+        <Steps
           primary={primary}
           secondary={secondary}
+          steps={steps}
+          position={progress / 10}
+          onCurrent={(c) => {
+            setProgress(c * 10);
+          }}
         />
-        <StepeThree
-          progress={progress}
-          step={40}
-          colorPrimary={primary}
-          FunctionsInfor={(s, p) => setPageFunctions([s, p])}
-        />
+        <Box minH={progress == 0 ? "40vh" : "55vh"}>
+          <StepeZero
+            progress={progress}
+            color2={secondary}
+            step={10}
+            color={primary}
+            time={(temp) => setTime2(temp)}
+            price={(valor) => setValor2(valor)}
+            ownDesign={(own) => setOwnDesign(own)}
+            witchDesign={(w) => setWitchDesign(w)}
+          />
+          <StepOne
+            step={20}
+            progress={progress}
+            changeColor={(color, second) => {
+              setPrimary(color);
+              setSecondary(second);
+            }}
+          />
+          <StepTwo
+            progress={progress}
+            colorPrimary={primary}
+            step={30}
+            PageInfor={(informs) => setPageInforms(informs)}
+          />
+          <StepeIntroduction
+            progress={progress}
+            step={0}
+            primary={primary}
+            secondary={secondary}
+          />
+          <StepeThree
+            progress={progress}
+            step={40}
+            colorPrimary={primary}
+            FunctionsInfor={(s, p) => setPageFunctions([s, p])}
+          />
           <StepeFour
             progress={progress}
             step={50}
@@ -304,98 +279,108 @@ const Home: NextPage = () => {
               console.log(info.day, info.hour, info.month);
             }}
           />
-          <LastStep step={60} progress={progress} primary={primary} secondary={secondary} />
-          {/* 
+          <LastStep
+            step={60}
+            progress={progress}
+            primary={primary}
+            secondary={secondary}
+          />
           <Button
             display={progress == 50 ? "static" : "none"}
-            bg="lightblue"
+            bg={primary}
             borderRadius="8px"
-            p="10px"
-            onClick={() => handleSendInformation()}
+            color="white"
+            p="10px"            
+            onClick={() =>{handleSendInformation(); setProgress(progress +10)}}
           >
-            send
-          </Button> */}
-      </Box>
-      <Flex h="auto" mb="3%">
-        <Button
-          mx="auto"
-          onClick={() => {
-            setProgress(progress - 10);
-          }}
-          isDisabled={progress == 0 ? true : false}
-        >
-          Anterior
-        </Button>
+            Finaliza e enviar!
+          </Button> 
+        </Box>
+        <Flex h="auto" mb="3%">
+          <Button
+            mx="auto"
+            onClick={() => {
+              setProgress(progress - 10);
+            }}
+            isDisabled={progress == 0 ? true : false}
+          >
+            Anterior
+          </Button>
 
-        <Box px="3%" w="45%">
-          <Text textAlign="center" fontSize="20px" color={primary}>
-            Valor estimado:
-          </Text>
-          <Flex display={ownDesign ? "none" : "flex"} mx="auto" w="max-content">
+          <Box px="3%" w="45%">
+            <Text textAlign="center" fontSize="20px" color={primary}>
+              Valor estimado:
+            </Text>
+            <Flex
+              display={ownDesign ? "none" : "flex"}
+              mx="auto"
+              w="max-content"
+            >
+              <Text
+                mr="5px"
+                alignSelf="end"
+                textAlign="center"
+                fontSize="14px"
+                color={secondary}
+                w="max-content"
+              >
+                Em 10x de
+              </Text>
+              <Text
+                textAlign="center"
+                fontSize="20px"
+                color={secondary}
+                w="max-content"
+              >
+                {" R$ " + (((valor + valor2) / 10) * 11) / 10 + ",00 reais"}
+              </Text>
+            </Flex>
             <Text
-              mr="5px"
-              alignSelf="end"
               textAlign="center"
               fontSize="14px"
               color={secondary}
               w="max-content"
+              mx="auto"
+              display={ownDesign ? "none" : "flex"}
             >
-              Em 10x de
+              {" Ou a vista por " + (" R$ " + (valor + valor2) + ",00 reais")}
             </Text>
             <Text
               textAlign="center"
               fontSize="20px"
               color={secondary}
               w="max-content"
+              mx="auto"
+              display={ownDesign ? "flex" : "none"}
             >
-              {" R$ " + (((valor + valor2) / 10) * 11) / 10 + ",00 reais"}
+              Fazer reunião
             </Text>
-          </Flex>
-          <Text
-            textAlign="center"
-            fontSize="14px"
-            color={secondary}
-            w="max-content"
+          </Box>
+          <Box w="45%" px="3%">
+            <Text textAlign="center" fontSize="20px" color={primary}>
+              Tempo estimado:
+            </Text>
+            <Text textAlign="center" fontSize="20px" color={secondary}>
+              {ownDesign
+                ? "Fazer Reunião"
+                : (time + time2 > 20 ? (time + time2) / 20 : time + time2) +
+                  " " +
+                  (time + time2 > 20 ? "meses" : "dias")}
+            </Text>
+          </Box>
+          <Button
             mx="auto"
-            display={ownDesign ? "none" : "flex"}
+            onClick={() => {
+              setProgress(progress + 10);
+              if (progress === 50) {
+                () => handleSendInformation();
+              }
+            }}
+            isDisabled={progress == 60 ? true : false}
           >
-            {" Ou a vista por " + (" R$ " + (valor + valor2) + ",00 reais")}
-          </Text>
-          <Text
-            textAlign="center"
-            fontSize="20px"
-            color={secondary}
-            w="max-content"
-            mx="auto"
-            display={ownDesign ? "flex" : "none"}
-          >
-            Fazer reunião
-          </Text>
-        </Box>
-        <Box w="45%" px="3%">
-          <Text textAlign="center" fontSize="20px" color={primary}>
-            Tempo estimado:
-          </Text>
-          <Text textAlign="center" fontSize="20px" color={secondary}>
-            {ownDesign
-              ? "Fazer Reunião"
-              : (time + time2 > 20 ? (time + time2) / 20 : time + time2) +(" ")+
-                (time + time2 > 20 ? "meses" : "dias")}
-          </Text>
-        </Box>
-        <Button
-          mx="auto"
-          onClick={() => {
-            setProgress(progress + 10);
-            if (progress === 50) {
-              () => handleSendInformation()
-            }
-          }}
-          isDisabled={progress == 60 ? true : false}
-        >
-          Próximo
-        </Button>
-      </Flex>
+            Próximo
+          </Button>
+        </Flex>
       </Box>
       <Benefits primary={primary} secondary={secondary} chose={chose} />
       <Explain primary={primary} />

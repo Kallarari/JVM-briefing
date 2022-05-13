@@ -13,11 +13,11 @@ import { ThemeContext } from "@emotion/react";
 import { Icon } from "@iconify/react";
 import axios from "axios";
 import React, { useContext, useEffect, useState } from "react";
-type array={
-  mounth:number;
-  day:Number;
-  hour:Number;
-}
+type array = {
+  mounth: number;
+  day: Number;
+  hour: Number;
+};
 type schedulingProps = {
   color1: string;
   color2: string;
@@ -26,22 +26,22 @@ type schedulingProps = {
 export default function Scheduling({ color1, color2, date }: schedulingProps) {
   const hours = [8, 12, 15, 18];
   //quantas horas você quer oferecer?
- /*  const meetings = [
+  /*  const meetings = [
     { month: 5, day: 9, hour: 12 },
     { month: 5, day: 10, hour: 12 },
     { month: 5, day: 15, hour: 8 },
     { month: 6, day: 8, hour: 8 },
   ]; */
   //formato das reuniões
-  const [size, setSize] = useState(7);
+  const [size, setSize] = useState(5);
   //largura de quantos dias terão a agenda
   const [maxDays, setMaxDays] = useState(30);
   //quantos dias pra frente o cara vai poder ver
-  const houverColor = "#a8a8a8";
-  const headColor = "#aaaa";
-  const hoursColor = "#e6e6e6";
-  const selectedColor = "yellow";
-  const notColor = "red";
+  const houverColor = "#28689c";
+  const headColor = color1;
+  const hoursColor = color1;
+  const selectedColor = color2;
+  const notColor = "#ce3333";
   var semana = ["Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "Sáb"];
   const [info, setInfo] = useState<any>([]);
   const [colorBox, setColorBox] = useState(String);
@@ -82,47 +82,48 @@ export default function Scheduling({ color1, color2, date }: schedulingProps) {
     date(selectedDay, selectedHours, selectedMonth);
   }, [selectedHours]);
 
-  function handleColor(key1:number, item:number):string {
+  function handleColor(key1: number, item: number): string {
     for (let i = 0; i < info.length; i++) {
-      if (info[i].informs.day ==
-        (d.getDate() + varDay + key1 >
-          new Date(2022, d.getMonth(), 0).getDate()
+      if (
+        info[i].informs.day ==
+        (d.getDate() + varDay + key1 > new Date(2022, d.getMonth(), 0).getDate()
           ? d.getDate() +
-          varDay +
-          key1 -
-          new Date(2022, d.getMonth(), 0).getDate()
-          : d.getDate() + varDay + key1)) {
+            varDay +
+            key1 -
+            new Date(2022, d.getMonth(), 0).getDate()
+          : d.getDate() + varDay + key1)
+      ) {
         if (info[i].informs.hour == item) {
-          if (info[i].informs.month ==
+          if (
+            info[i].informs.month ==
             (d.getDate() + varDay + key1 >
-              new Date(2022, d.getMonth(), 0).getDate()
+            new Date(2022, d.getMonth(), 0).getDate()
               ? d.getMonth() + 1
-              : d.getMonth())) {
-            return (notColor);
+              : d.getMonth())
+          ) {
+            return notColor;
           }
         }
       }
     }
-    return (selectedDay ==
-        (d.getDate() + varDay + key1 >
-          new Date(2022, d.getMonth(), 0).getDate()
-          ? d.getDate() +
+    return selectedDay ==
+      (d.getDate() + varDay + key1 > new Date(2022, d.getMonth(), 0).getDate()
+        ? d.getDate() +
           varDay +
           key1 -
           new Date(2022, d.getMonth(), 0).getDate()
-          : d.getDate() + varDay + key1) &&
-        selectedHours == item &&
-        (d.getDate() + varDay + key1 >
-          new Date(2022, d.getMonth(), 0).getDate()
-          ? d.getMonth() + 1
-          : d.getMonth()) == selectedMonth
-        ? selectedColor
-        : hoursColor);
+        : d.getDate() + varDay + key1) &&
+      selectedHours == item &&
+      (d.getDate() + varDay + key1 > new Date(2022, d.getMonth(), 0).getDate()
+        ? d.getMonth() + 1
+        : d.getMonth()) == selectedMonth
+      ? selectedColor
+      : hoursColor;
   }
 
   return (
     <>
-      <Flex>
+      <Flex justifyContent="space-between">
         <Box
           alignSelf="center"
           onClick={() =>
@@ -130,12 +131,12 @@ export default function Scheduling({ color1, color2, date }: schedulingProps) {
           }
           cursor={varDay - 1 == 0 ? "not-allowed" : "pointer"}
         >
-          <Icon icon="bi:arrow-left-square" width="100px"></Icon>
+          <Icon icon="bi:arrow-left-circle" width="50px"></Icon>
         </Box>
         {[...Array(size)].map((item, key1) => (
-          <Box w="100px" key={key1}>
+          <Box w="80px" mx="20px" key={key1} bg="#dadada" borderRadius="8px">
             <Box bg={headColor} w="100%" borderTopRadius="8px">
-              <Text textAlign="center">
+              <Text textAlign="center" color="white" fontWeight="500">
                 {
                   semana[
                     d.getDay() + 1 + key1 + varDay < 7
@@ -145,7 +146,7 @@ export default function Scheduling({ color1, color2, date }: schedulingProps) {
                 }{" "}
               </Text>
               <Flex justifyContent="space-around">
-                <Text>
+                <Text color="white">
                   {d.getDate() + varDay + key1 >
                   new Date(2022, d.getMonth(), 0).getDate()
                     ? d.getDate() +
@@ -154,7 +155,7 @@ export default function Scheduling({ color1, color2, date }: schedulingProps) {
                       new Date(2022, d.getMonth(), 0).getDate()
                     : d.getDate() + varDay + key1}
                 </Text>
-                <Text>
+                <Text color="white">
                   {d.getDate() + varDay + key1 >
                   new Date(2022, d.getMonth(), 0).getDate()
                     ? month[d.getMonth() + 1]
@@ -162,11 +163,16 @@ export default function Scheduling({ color1, color2, date }: schedulingProps) {
                 </Text>
               </Flex>
             </Box>
-            {hours.map((item, key) => (            
+            <Box>
+            {hours.map((item, key) => (
               <Box
                 key={key}
-                w="100%"
-                h="100px"
+                w="65px"
+                h="60px"
+                mx="10%"
+                my="10%"
+                borderRadius="8px"
+                cursor={handleColor(key1, item)==notColor?"default":"pointer"}
                 onClick={() => {
                   for (let i = 0; i < info.length; i++) {
                     if (
@@ -202,12 +208,13 @@ export default function Scheduling({ color1, color2, date }: schedulingProps) {
                   );
                 }}
                 bg={handleColor(key1, item)}
-                _hover={{ background: houverColor }}
+                _hover={handleColor(key1, item)==notColor?{ background: notColor }:handleColor(key1, item)==selectedColor?{ background: selectedColor }:{ background: houverColor }}
                 transition=".2s"
               >
-                <Text textAlign="center">{item} horas</Text>
+                <Text textAlign="center" color="white" pt="4px">{item}{}{":00"} <br />Horas</Text>
               </Box>
             ))}
+            </Box>
           </Box>
         ))}
         <Box
@@ -217,9 +224,10 @@ export default function Scheduling({ color1, color2, date }: schedulingProps) {
           }
           cursor={varDay - 1 > maxDays ? "not-allowed" : "pointer"}
         >
-          <Icon icon="bi:arrow-right-square" width="100px"></Icon>
+        <Icon icon="bi:arrow-right-circle" width="50px"></Icon>
         </Box>
-      </Flex>{/* 
+      </Flex>
+      {/* 
       <Text>
         Reunião as {selectedHours} horas, no dia {selectedDay}, do mes{" "}
         {selectedMonth}

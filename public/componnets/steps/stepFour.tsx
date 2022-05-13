@@ -56,7 +56,6 @@ export default function StepeFour({
           >
             Preencha com suas informações.
           </Text>
-
           <InputGroup w="90%" mx="auto" display="block" mb="10%">
             <Text fontSize="20px" color={primary} mb="3%" textAlign="center">
               Nome
@@ -65,7 +64,7 @@ export default function StepeFour({
               value={name}
               onChange={(e) => setName(e.target.value)}
               type="text"
-              placeholder="Elon Musk"
+              placeholder="Ricardo Costa"
             />
           </InputGroup>
           <InputGroup w="90%" mx="auto" display="block" mb="10%">
@@ -76,7 +75,7 @@ export default function StepeFour({
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               type="email"
-              placeholder="example@gmail.com"
+              placeholder="seu-email@gmail.com"
             />
           </InputGroup>
           <InputGroup w="90%" mx="auto" display="block">
