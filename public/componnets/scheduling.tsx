@@ -85,7 +85,7 @@ export default function Scheduling({ color1, color2, date }: schedulingProps) {
   function handleColor(key1: number, item: number): string {
     for (let i = 0; i < info.length; i++) {
       if (
-        info[i].informs.day ==
+        info[i].informs?.day ==
         (d.getDate() + varDay + key1 > new Date(2022, d.getMonth(), 0).getDate()
           ? d.getDate() +
             varDay +
@@ -172,11 +172,11 @@ export default function Scheduling({ color1, color2, date }: schedulingProps) {
                 mx="10%"
                 my="10%"
                 borderRadius="8px"
-                cursor={handleColor(key1, item)==notColor?"default":"pointer"}
+                cursor={handleColor(key1, item)==notColor?"not-allowed":"pointer"}
                 onClick={() => {
                   for (let i = 0; i < info.length; i++) {
                     if (
-                      info[i].informs.day ==
+                      info[i].informs?.day ==
                       (d.getDate() + varDay + key1 >
                       new Date(2022, d.getMonth(), 0).getDate()
                         ? d.getDate() +

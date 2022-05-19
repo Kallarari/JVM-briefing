@@ -65,7 +65,7 @@ export default function StepeIntroduction({
         Aqui você terá o preço e tempo estimado de cada aplicação e também
         conhecerá um pouco mais de nossos serviços e vantagens!
       </Text>
-      <Flex justifyContent="space-around" w="90%" mx="auto">
+      <Flex justifyContent="space-around" w="75%" mx="auto">
                 <Icon
                   icon="line-md:arrow-align-bottom"
                   style={{

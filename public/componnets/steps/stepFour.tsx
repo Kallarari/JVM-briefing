@@ -26,7 +26,7 @@ export default function StepeFour({
   const [email, setEmail] = useState("");
   useEffect(() => {
     infor(name, email, number, day, hour, month);
-  }, [number, name, email]);
+  }, [number, name, email, day, hour, month]);
   return (
     <Box my="3%" display={progress == step ? "block" : "none"}>
       <Flex justifyContent="space-around">
@@ -43,7 +43,7 @@ export default function StepeFour({
           <Scheduling
             color1={primary}
             color2={secondary}
-            date={(d, h, m) => {infor(name, email, number, d, h, m);}}
+            date={(d, h, m) => {setDay(d);setMonth(m);setHour(h);}}
           ></Scheduling>
         </Box>
         <Box>

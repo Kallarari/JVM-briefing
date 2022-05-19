@@ -18,17 +18,23 @@ import LastStep from "../public/componnets/steps/lastStep";
 import Steps from "../public/componnets/steps";
 import * as yup from "yup";
 
-
-
 const Home: NextPage = () => {
-let schema = yup.object().shape({
-  nome: yup.string().required(),
-  email: yup.string().email().required(),
-  number: yup.number().required().positive().integer(),
-});
+  const schema = yup.object().shape({
+    nome: yup.string().required("É necessário preencher nome"),
+    email: yup
+      .string()
+      .email("Email não é valido")
+      .required("É necessário preencher e-mail"),
+    number: yup
+      .number()
+      .required("É necessário preencher número")
+      .positive("Esse número não é valido")
+      .integer("Esse número não é valido").min(8),
+  });
 
   var infor: any;
   const [primary, setPrimary] = useState("#0079AE");
+  const [error, setError] = useState(String);
   const [secondary, setSecondary] = useState("#E68C26");
   const [chose, setChose] = React.useState(1);
   const [time, setTime] = React.useState(0);
@@ -60,6 +66,32 @@ let schema = yup.object().shape({
   function handleSendInformation() {
     axios.post("/api/subscribe", { informs: infor });
   }
+  function send() {
+    console.log(info.name, info.email, info.numer);
+   if (info.name == ""){
+    setError("Preencha seu nome.");
+     return 0;
+   }
+   
+   if (info.email == ""){
+    setError("Preencha seu E-mail.");
+    return 0;
+  }
+  if (info.numer == 0){
+    setError("Preencha seu número.");
+   return 0;
+ }
+ 
+ setError("");
+ handleSendInformation();
+ setProgress(progress +10);
+    /* 
+    schema.cast({nome:info.name, email:info.email, number:info.numer}){
+      return 0;
+    }
+   console.log(error); */
+  }
+
   const steps = [
     {
       name: "Introcução",
@@ -119,7 +151,7 @@ let schema = yup.object().shape({
       <Box
         mx="auto"
         position="absolute"
-        top={progress > 9 ? "-3%" : "0%"}
+        top={progress > 9 ? "-4%" : "0%"}
         transition="2s"
         w="100%"
       >
@@ -162,17 +194,19 @@ let schema = yup.object().shape({
             mx="auto"
             mt="20px"
           >
+            <Link href="https://jvm-webmarketing.vercel.app/" passHref>
             <Text
               p="5px 10px"
               fontWeight="600"
               color="white"
               bg={secondary}
               h="min"
-              borderRadius="7px"
-              cursor="pointer"
+              borderRadius="10px"
+              cursor="none"
             >
               Conheça a JVM
             </Text>
+            </Link>
             <Image h="5vh" src="/logo.png" alt="" />
             <Text
               p="5px 10px"
@@ -191,7 +225,7 @@ let schema = yup.object().shape({
         <Flex
           justifyContent="space-around"
           position="relative"
-          pt={progress > 9 ? "5%" : "11%"}
+          pt={progress > 9 ? "6%" : "11%"}
           transition="2s"
         >
           <Box
@@ -273,10 +307,10 @@ let schema = yup.object().shape({
                 day: d,
                 hour: h,
                 month: m,
-              });
+              }); /* 
               console.log(n, e, num, d, h, m);
               console.log("agora o info");
-              console.log(info.day, info.hour, info.month);
+              console.log(info.day, info.hour, info.month); */
             }}
           />
           <LastStep
@@ -285,16 +319,20 @@ let schema = yup.object().shape({
             primary={primary}
             secondary={secondary}
           />
+          <Box w="min" mx="auto">
+          <Text
+            display={progress == 50 ? "static" : "none"} color="red" textAlign="center" w="147px">{error}</Text>
           <Button
             display={progress == 50 ? "static" : "none"}
             bg={primary}
             borderRadius="8px"
             color="white"
-            p="10px"            
-            onClick={() =>{handleSendInformation(); setProgress(progress +10)}}
+            p="10px"
+            onClick={send}
           >
             Finaliza e enviar!
-          </Button> 
+          </Button>
+          </Box>
         </Box>
         <Flex h="auto" mb="3%">
           <Button
@@ -303,6 +341,9 @@ let schema = yup.object().shape({
               setProgress(progress - 10);
             }}
             isDisabled={progress == 0 ? true : false}
+            bg={primary}
+            color="white"
+            px="60px"
           >
             Anterior
           </Button>
@@ -377,6 +418,9 @@ let schema = yup.object().shape({
               }
             }}
             isDisabled={progress == 60 ? true : false}
+            bg={primary}
+            color="white"
+            px="60px"
           >
             Próximo
           </Button>
@@ -384,7 +428,7 @@ let schema = yup.object().shape({
       </Box>
       <Benefits primary={primary} secondary={secondary} chose={chose} />
       <Explain primary={primary} />
-      <Box>
+      {/* <Box>
         <Text
           fontFamily="body"
           my="1%"
@@ -480,21 +524,7 @@ let schema = yup.object().shape({
             </Box>
           </Flex>
         </Link>
-      </Box>
-      <Box w="1440px" mx="auto">
-        <Flex justifyContent="space-between">
-          <Box mx="auto">
-            <Text>
-              Ajude nos a melhorar sua experiência! Deixe um comentário.
-            </Text>
-          </Box>
-        </Flex>
-        <Box w="20%" mx="auto" my="3%">
-          <Button w="full" bg={primary} color="white">
-            Enviar
-          </Button>
-        </Box>
-      </Box>
+      </Box> */}
       <Box bg="#aaaa" w="100%" h="100px">
         <Text textAlign="center" pt="2%">
           Copyright © 2022 JVM. All rights reserved.
