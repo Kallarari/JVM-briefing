@@ -21,13 +21,13 @@ export default function Benefits({ primary, secondary, chose }: explainProps) {
       {" "}
       <Flex
         justifyContent="space-around"
-        w="1440px"
+        w={{ base: 'none', lg: "1280px", xl: "1440px" }}
         mx="auto"
         display={chose == 1 ? "Flex" : "none"}
         h="fit"
         my="5%"
       >
-        <Box w="30%" borderRight="1px solid" borderColor={secondary}>
+        <Box px="2%" w="30%" borderRight="1px solid" borderColor={secondary}>
           <Text
             textAlign="center"
             fontSize="30px"
@@ -36,14 +36,13 @@ export default function Benefits({ primary, secondary, chose }: explainProps) {
           >
             Vantagens
           </Text>
-          <Text textAlign="center" fontSize="20px">
-            Desenvolvimento próprio
+          <Text textAlign="center" fontSize="20px">Tenha sua presença online e assistência ágil.
           </Text>
           <Text textAlign="center" fontSize="20px" mt="3%">
-            Sistema de agendamento online
+            Seu site desenvolvido com a mesma tecnologia do facebook
           </Text>
         </Box>
-        <Box w="30%" borderRight="1px solid #aaaaa">
+        <Box  px="2%" w="30%" borderRight="1px solid #aaaaa">
           <Text
             textAlign="center"
             fontSize="30px"
@@ -57,10 +56,10 @@ export default function Benefits({ primary, secondary, chose }: explainProps) {
             e para um público mais centralizado
           </Text>
           <Text textAlign="center" fontSize="20px" mt="3%">
-            Tráfego orgânico gratuíto
+            Tráfego gratuíto usando blogs, e muito superior a wordpress. 
           </Text>
         </Box>
-        <Box w="30%" borderLeft="1px solid" borderColor={secondary}>
+        <Box w="30%" px="2%" borderLeft="1px solid" borderColor={secondary}>
           <Text
             textAlign="center"
             fontSize="30px"
@@ -70,7 +69,7 @@ export default function Benefits({ primary, secondary, chose }: explainProps) {
             Resultados
           </Text>
           <Text textAlign="center" fontSize="20px">
-            60% de desenvolvimento de marca nos primeiros dois meses
+            Vendas seus produtos/serviços online, aceitando cartão, pix, e até parcelado.
           </Text>
           <Text textAlign="center" fontSize="20px" mt="3%">
             Agendamento online para clínicas.
@@ -79,7 +78,7 @@ export default function Benefits({ primary, secondary, chose }: explainProps) {
       </Flex>{" "}
       <Flex
         justifyContent="space-around"
-        w="1440px"
+        w={{ base: 'none', lg: "1280px", xl: "1440px" }}
         mx="auto"
         display={chose == 2 ? "Flex" : "none"}
         h="fit"
@@ -137,7 +136,7 @@ export default function Benefits({ primary, secondary, chose }: explainProps) {
       </Flex>{" "}
       <Flex
         justifyContent="space-around"
-        w="1440px"
+        w={{ base: 'none', lg: "1280px", xl: "1440px" }}
         mx="auto"
         display={chose == 3 ? "Flex" : "none"}
         h="fit"

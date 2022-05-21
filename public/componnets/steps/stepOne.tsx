@@ -114,8 +114,7 @@ export default function StepOne({ progress, changeColor, step }: stepProps) {
               </Box>
             </Flex>
           </Box>
-            <Box w="48%">
-              
+            <Box w="48%">              
             <Text
               textAlign="center"
               color={color}
@@ -125,6 +124,11 @@ export default function StepOne({ progress, changeColor, step }: stepProps) {
             >
               Aproveite e faça sua edentidade visual com a<br /> EG design
             </Text>
+            <Text
+              textAlign="center"
+              color={color2}
+              fontSize="18px"
+              fontWeight="500">É necessário ter logo para desenvolvermos bem seu site, então fizemos uma parceria com a EG design para você ter a melhor identidade visual para a sua empresa produzido por profissionais com anos de experiência. </Text>
             </Box>
         </Flex>
       </Box>

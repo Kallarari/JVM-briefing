@@ -19,7 +19,7 @@ export default function Explain({primary}:explainProps) {
   const [backgroud, setBackgroud] = useState("#e9e9e9");
   return (
     <Box bg={backgroud} py="5%">
-        <Flex w="1440px" mx="auto" justifyContent="space-between">
+        <Flex w={{ base: 'none', lg: "1200px", xl: "1440px" }} mx={{ base: 'none', lg: "auto", xl: "auto" }} justifyContent="space-between">
           <Box
             w="30%"
             bg="white"

@@ -181,7 +181,7 @@ export default function Adm() {
                     >
                       Modelo escolhido
                     </Text>
-                    {item.informs.ownDesign ? (
+                    {item.informs?.ownDesign? (
                       <Text color="white">Design Prórpio</Text>
                     ) : (
                       <>
@@ -258,16 +258,16 @@ export default function Adm() {
                       Cores
                     </Text>
                     <Flex justifyContent="space-between">
-                      <Box bg={item.informs.colorSecondary} w="45%">
+                      <Box bg={item.informs?.colorSecondary} w="45%">
                         <Text color="white">
                           {" "}
-                          Secundária{item.informs.colorSecondary}
+                          Secundária{item.informs?.colorSecondary}
                         </Text>
                       </Box>
-                      <Box bg={item.informs.colorPrimary} w="45%">
+                      <Box bg={item.informs?.colorPrimary} w="45%">
                         <Text color="white">
                           {" "}
-                          Primária{item.informs.colorPrimary}
+                          Primária{item.informs?.colorPrimary}
                         </Text>
                       </Box>
                     </Flex>
@@ -280,7 +280,7 @@ export default function Adm() {
                       Características
                     </Text>
                     <Box>
-                      {item.informs.pageInformas?.map((item: any, key: any) => (
+                      {item.informs?.pageInformas?.map((item: any, key: any) => (
                         <Text
                           color="white"
                           key={key}
@@ -298,7 +298,7 @@ export default function Adm() {
                       ))}
                     </Box>
                     <Box>
-                      {item.informs.pageFunctions?.map(
+                      {item.informs?.pageFunctions?.map(
                         (item: any, key: any) => (
                           <Text
                             color="white"

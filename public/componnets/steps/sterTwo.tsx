@@ -9,6 +9,7 @@ import {
   Stack,
   Radio,
   Checkbox,
+  Image,
 } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 
@@ -16,9 +17,14 @@ type stepProps = {
   progress: number;
   colorPrimary: string;
   step: number;
-  PageInfor: (checkedItems:boolean[]) => void;
+  PageInfor: (checkedItems: boolean[]) => void;
 };
-export default function StepTwo({ progress, colorPrimary, step,PageInfor }: stepProps) {
+export default function StepTwo({
+  progress,
+  colorPrimary,
+  step,
+  PageInfor,
+}: stepProps) {
   const [checkedItems, setCheckedItems] = React.useState([
     false,
     false,
@@ -44,8 +50,7 @@ export default function StepTwo({ progress, colorPrimary, step,PageInfor }: step
         fontWeight="600"
         color={colorPrimary}
       >
-        Assinale quais informações você acha importante
-        o seu site ter.
+        Assinale quais informações você acha importante o seu site ter.
       </Text>
       <RadioGroup>
         <Stack
@@ -67,7 +72,7 @@ export default function StepTwo({ progress, colorPrimary, step,PageInfor }: step
                 checkedItems[4],
                 checkedItems[5],
                 checkedItems[6],
-              ])              
+              ])
             }
           >
             Contato
@@ -104,7 +109,7 @@ export default function StepTwo({ progress, colorPrimary, step,PageInfor }: step
           >
             Serviços
           </Checkbox>
-          <Checkbox 
+          <Checkbox
             isChecked={checkedItems[3]}
             onChange={(e) =>
               setCheckedItems([
@@ -116,8 +121,11 @@ export default function StepTwo({ progress, colorPrimary, step,PageInfor }: step
                 checkedItems[5],
                 checkedItems[6],
               ])
-            }>Perguntas frequentes</Checkbox>
-          <Checkbox 
+            }
+          >
+            Perguntas frequentes
+          </Checkbox>
+          <Checkbox
             isChecked={checkedItems[4]}
             onChange={(e) =>
               setCheckedItems([
@@ -129,8 +137,11 @@ export default function StepTwo({ progress, colorPrimary, step,PageInfor }: step
                 checkedItems[5],
                 checkedItems[6],
               ])
-            }>Termos e condições de uso</Checkbox>
-          <Checkbox 
+            }
+          >
+            Termos e condições de uso
+          </Checkbox>
+          <Checkbox
             isChecked={checkedItems[5]}
             onChange={(e) =>
               setCheckedItems([
@@ -142,8 +153,11 @@ export default function StepTwo({ progress, colorPrimary, step,PageInfor }: step
                 e.target.checked,
                 checkedItems[6],
               ])
-            }>Blog</Checkbox>
-          <Checkbox 
+            }
+          >
+            Blog
+          </Checkbox>
+          <Checkbox
             isChecked={checkedItems[6]}
             onChange={(e) =>
               setCheckedItems([
@@ -152,10 +166,13 @@ export default function StepTwo({ progress, colorPrimary, step,PageInfor }: step
                 checkedItems[2],
                 checkedItems[3],
                 checkedItems[4],
-                checkedItems[5],                
+                checkedItems[5],
                 e.target.checked,
               ])
-            }>Outro</Checkbox>
+            }
+          >
+            Outro
+          </Checkbox>
         </Stack>
       </RadioGroup>
       <InputGroup
@@ -168,6 +185,21 @@ export default function StepTwo({ progress, colorPrimary, step,PageInfor }: step
         </Text>
         <Input type="text" placeholder="Pagina de ...." />
       </InputGroup>
+      <Box display={checkedItems[6] == true ? "none":"static" }>
+        <Text
+          color={colorPrimary}
+          textAlign="center"
+          mt="40px"
+          fontSize="18px"
+          fontWeight="500"
+        >
+          Essas informações não vão adicionar ao valor do seu site só vão
+          substituir outros conteúdos. <br /> Recomendamos um blog e uma página
+          de contato para o site ter movimento e para as pessoas chegaram até
+          sua empresa!
+        </Text>
+        <Image src="/prototipe.png" w="200px" mx="auto" mt="20px" alt="" />
+      </Box>
     </Box>
   );
 }

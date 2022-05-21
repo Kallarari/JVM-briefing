@@ -55,7 +55,7 @@ export default function LastStep({
         Sua reunião já foi agendada e seu horário reservado. <br />
         Entraremos em contato o mais breve possível, desde já agradecemos.{" "}
       </Text>
-      <Box w="1440px" mx="auto" alignContent="center">
+      <Box w={{ base: 'none', lg: "1280px", xl: "1440px" }} mx="auto" alignContent="center">
         <Flex justifyContent="space-between">
           <Box mx="auto">
             <Text
@@ -69,7 +69,9 @@ export default function LastStep({
             </Text>
           </Box>
         </Flex>
-        <Textarea placeholder="Escreva aqui sua sujestão!" w="50%" mt="2%" ml="25%"></Textarea>
+        <Box w="50%" mx="auto">
+        <Textarea placeholder="Escreva aqui sua sujestão!" mt="2%"></Textarea>
+        </Box>
         <Box w="20%" mx="auto" my="3%">
           <Button w="full" bg={primary} color="white">
             Enviar

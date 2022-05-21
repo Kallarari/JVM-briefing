@@ -12,7 +12,10 @@ import {
   Radio,
   Stack,
 } from "@chakra-ui/react";
+import { Icon } from "@iconify/react";
 import React, { useEffect, useState } from "react";
+import ImageGallery from "react-image-gallery";
+import { Carousel } from "react-responsive-carousel";
 
 type stepExampleProps = {
   progress: number;
@@ -36,69 +39,162 @@ export default function StepeZero({
 }: stepExampleProps) {
   const [value, setValue] = useState("");
   const [chose, setChose] = useState(1);
+  const [site, setSite] = useState(0);
   useEffect(() => {
     ownDesign(false);
     witchDesign(value);
     if (value == "1") {
       price(3100);
       time(30);
-    } 
-    else  if (value == "2") {
+    } else if (value == "2") {
       price(1700);
       time(14);
-    } 
-    else  if (value == "3") {
+    } else if (value == "3") {
       price(4100);
       time(40);
-    } 
-    else  if (value == "4") {
+    } else if (value == "4") {
       price(2700);
       time(30);
-    } 
-    else  if (value == "5") {
+    } else if (value == "5") {
       price(1500);
       time(12);
-    } 
-    else  if (value == "6") {
+    } else if (value == "6") {
       price(1600);
       time(14);
-    } 
-    else  if (value == "7") {
+    } else if (value == "7") {
       price(1700);
       time(15);
-    } 
-    else  if (value == "8") {
+    } else if (value == "8") {
       price(1100);
       time(10);
-    } 
-    else  if (value == "8") {
+    } else if (value == "8") {
       price(8700);
       time(60);
-    } 
-    else  if (value == "9") {
+    } else if (value == "9") {
       price(9000);
       time(60);
-    } 
-    else  if (value == "10") {
+    } else if (value == "10") {
       price(11000);
       time(80);
-    } 
-    else  if (value == "11") {
+    } else if (value == "11") {
       price(7500);
       time(50);
-    } 
-    else  if (value == "12") {
+    } else if (value == "12") {
       price(7900);
       time(55);
-    } 
+    }
   }, [value]);
+
+  const image = [
+    ["/site1-1.png", "/site1-2.png", "/site1-3.png", "/site1-4.png"],
+    ["/site2-1.png", "/site2-2.png", "/site2-3.png", "/site2-4.png"],
+    ["/site3-1.png", "/site3-2.png", "/site3-3.png", "/site3-4.png"],
+    ["/site4-1.png", "/site4-2.png", "/site4-3.png", "/site4-4.png"],
+  ];
+
+  const [selected, setSelected] = useState(0);
   return (
     <>
-      <Box display={progress == step ? "block" : "none"}>
-      <Flex
-          justifyContent="space-around"
-          my="4%"
+      <Box
+        display={
+          progress == step
+            ? { base: "block", md: "none", lg: "none", xl: "none" }
+            : "none"
+        }
+        w="80vw"
+        mx="auto"
+        h="70vh"
+      >
+        <Text
+          color={color2}
+          mt="7%"
+          fontSize="18px"
+          fontWeight="500"
+          textAlign="center"
         >
+          Selecione um desse modelos
+        </Text>
+        <Flex>
+          <Image
+            onClick={() =>{ setValue("1");setSite(0)}}
+            w="45vw"
+            src="/siteModel1.png"
+            alt=""
+          />
+          <Image
+            onClick={() => { setValue("5");setSite(2)}}
+            w="45vw"
+            src="/siteModel5.png"
+            alt=""
+          />
+        </Flex>
+        <Flex>
+          <Image
+            onClick={() =>{ setValue("9");setSite(1)}}
+            w="45vw"
+            src="/siteModel9.png"
+            alt=""
+          />
+          <Image
+            onClick={() => { setValue("11");setSite(3)}}
+            w="45vw"
+            src="/siteModel11.png"
+            alt=""
+          />
+        </Flex>
+        <Box>
+          {image[site].map((item, index) => (
+            <Box
+              key={index}
+              display={selected == index ? "block" : "none"}
+              mx="auto"
+              h="23vh"
+            >
+              <Image mx="auto" w="70vw" src={item} alt="" />
+            </Box>
+          ))}
+          <Flex w="fit-content" mx="auto" mt="10px">
+            <Icon
+              icon="akar-icons:arrow-left-thick"
+              style={{
+                width: "20px",
+                height: "20px",
+                marginRight: "20px",
+              }}
+              onClick={() => {
+                if (selected == 0) {
+                  setSelected(image[site].length - 1);
+                } else {
+                  setSelected(selected - 1);
+                }
+              }}
+            />
+            <Icon
+              icon="akar-icons:arrow-right-thick"
+              style={{
+                width: "20px",
+                height: "20px",
+              }}
+              onClick={() => {
+                if (selected >= image[site].length - 1) {
+                  setSelected(0);
+                } else {
+                  setSelected(selected + 1);
+                }
+              }}
+            />
+          </Flex>
+        </Box>
+        <Text fontSize="9px" mt="3vh">
+          tenha acesso a mais informações na versão pra desktop desse site *
+        </Text>
+      </Box>
+      <Box
+        display={
+          progress == step ? { base: "none", lg: "block", xl: "block" } : "none"
+        }
+      >
+        <Flex justifyContent="space-around" my="4%">
           <Button
             onClick={() => {
               setChose(1);
@@ -410,14 +506,19 @@ export default function StepeZero({
           </Box>
         </Flex>
         <Box w="min" mx="auto">
-        <Button onClick={()=>ownDesign(true)} bg={color} color="white" fontSize="18px" fontWeight="600"
+          <Button
+            onClick={() => ownDesign(true)}
+            bg={color}
+            color="white"
+            fontSize="18px"
+            fontWeight="600"
             _hover={{
               transition: ".2s",
               boxShadow: "2px 5px 9px #888888",
-            }}>
+            }}
+          >
             Quero ter meu próprio design.
-        </Button>
-
+          </Button>
         </Box>
       </Box>
     </>

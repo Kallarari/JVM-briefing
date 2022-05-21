@@ -15,19 +15,19 @@ type stepThreeProps = {
   progress: number;
   step: number;
   colorPrimary: string;
-  FunctionsInfor: (scheduling1:boolean, payment1:boolean) => void;
+  FunctionsInfor: (scheduling1: boolean, payment1: boolean) => void;
 };
 export default function StepeThree({
   progress,
   step,
   colorPrimary,
-  FunctionsInfor
+  FunctionsInfor,
 }: stepThreeProps) {
-  const [scheduling, setScheduling] = useState(Boolean)
-  const [payment, setPayment] = useState(Boolean)
+  const [scheduling, setScheduling] = useState(Boolean);
+  const [payment, setPayment] = useState(Boolean);
   useEffect(() => {
-    FunctionsInfor(scheduling,payment);
-  }, [scheduling,payment]);
+    FunctionsInfor(scheduling, payment);
+  }, [scheduling, payment]);
   return (
     <Box my="3%" display={progress == step ? "block" : "none"}>
       <Text
@@ -39,7 +39,7 @@ export default function StepeThree({
         Funcionalidades adicionais
       </Text>
       <Flex justifyContent="space-around">
-        <Box  w="40%">
+        <Box w="40%">
           <Text
             color={colorPrimary}
             fontSize="18px"
@@ -48,14 +48,16 @@ export default function StepeThree({
           >
             Sistema de agendamento
           </Text>
-          <Checkbox
-            isChecked={scheduling}
-            onChange={(e) =>{
-              setScheduling(e.target.checked)
-            }}
-          >
-            Agendamento
-          </Checkbox>
+          <Box mx="auto" w="max-content">
+            <Checkbox
+              isChecked={scheduling}
+              onChange={(e) => {
+                setScheduling(e.target.checked);
+              }}
+            >
+              Agendamento
+            </Checkbox>
+          </Box>
           <Flex justifyContent="space-between">
             <Img
               transform="scaleX(-1)"
@@ -63,7 +65,7 @@ export default function StepeThree({
               src="./cellAgendamento.png"
             ></Img>
             <Text
-            w="50%"
+              w="50%"
               color="#646464"
               fontSize="16px"
               fontWeight="500"
@@ -85,29 +87,30 @@ export default function StepeThree({
           >
             Sistema de pagamento
           </Text>
-          <Checkbox
-            isChecked={payment}
-            onChange={(e) =>{
-              setPayment(e.target.checked)
-            }}
-          >
-            pagamento
-          </Checkbox>
+          <Box mx="auto" w="max-content">
+            <Checkbox
+              isChecked={payment}
+              onChange={(e) => {
+                setPayment(e.target.checked);
+              }}
+            >
+              Pagamento
+            </Checkbox>
+          </Box>
           <Flex justifyContent="space-between">
             <Text
-            w="50%"
+              w="50%"
               color="#646464"
               fontSize="16px"
               fontWeight="500"
               textAlign="center"
               alignSelf="center"
             >
-              Receba pagamento por cartão, boleto e pix. <br /> Ofereça pagamentos a vista ou parcelados e acompanhe os resultados em tempo real na sua aba de administração.
+              Receba pagamento por cartão, boleto e pix. <br /> Ofereça
+              pagamentos a vista ou parcelados e acompanhe os resultados em
+              tempo real na sua aba de administração.
             </Text>
-            <Img
-              w="200px"
-              src="./cellPayment.png"
-            ></Img>
+            <Img w="200px" src="./cellPayment.png"></Img>
           </Flex>
         </Box>
       </Flex>
