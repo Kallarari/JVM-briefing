@@ -153,12 +153,12 @@ export default function StepeZero({
               <Image mx="auto" w="70vw" src={item} alt="" />
             </Box>
           ))}
-          <Flex w="fit-content" mx="auto" mt="10px">
+          <Flex w="fit-content" mx="auto" mt="1vh">
             <Icon
               icon="akar-icons:arrow-left-thick"
               style={{
                 width: "20px",
-                height: "20px",
+                height: "3vh",
                 marginRight: "20px",
               }}
               onClick={() => {
@@ -173,7 +173,7 @@ export default function StepeZero({
               icon="akar-icons:arrow-right-thick"
               style={{
                 width: "20px",
-                height: "20px",
+                height: "3vh",
               }}
               onClick={() => {
                 if (selected >= image[site].length - 1) {
@@ -194,7 +194,7 @@ export default function StepeZero({
           progress == step ? { base: "none", lg: "block", xl: "block" } : "none"
         }
       >
-        <Flex justifyContent="space-around" my="4%">
+        <Flex justifyContent="space-around" my="4vh">
           <Button
             onClick={() => {
               setChose(1);
