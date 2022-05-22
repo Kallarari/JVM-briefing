@@ -123,115 +123,262 @@ export default function Scheduling({ color1, color2, date }: schedulingProps) {
 
   return (
     <>
-      <Flex justifyContent="space-between">
-        <Box
-          alignSelf="center"
-          onClick={() =>
-            varDay - 1 > 0 ? setVarDay(varDay - size) : setVarDay(varDay)
-          }
-          cursor={varDay - 1 == 0 ? "not-allowed" : "pointer"}
-        >
-          <Icon icon="bi:arrow-left-circle" width="50px"></Icon>
-        </Box>
-        {[...Array(size)].map((item, key1) => (
-          <Box w="80px" mx="20px" key={key1} bg="#dadada" borderRadius="8px">
-            <Box bg={headColor} w="100%" borderTopRadius="8px">
-              <Text textAlign="center" color="white" fontWeight="500">
-                {
-                  semana[
-                    d.getDay() + 1 + key1 + varDay < 7
-                      ? d.getDay() + key1 + varDay
-                      : (d.getDay() + key1 + varDay) % 7
-                  ]
-                }{" "}
-              </Text>
-              <Flex justifyContent="space-around">
-                <Text color="white">
-                  {d.getDate() + varDay + key1 >
-                  new Date(2022, d.getMonth(), 0).getDate()
-                    ? d.getDate() +
-                      varDay +
-                      key1 -
-                      new Date(2022, d.getMonth(), 0).getDate()
-                    : d.getDate() + varDay + key1}
+      <Box
+        display={{ base: "block", md: "none", lg: "none", xl: "none" }}
+        w="80vw"
+        mx="auto"
+        h="70vh"
+      >
+        <Flex justifyContent="space-between">
+          <Box
+            alignSelf="center"
+            onClick={() =>
+              varDay - 2 > 0 ? setVarDay(varDay - size+2) : setVarDay(varDay)
+            }
+            cursor={varDay - 2 <= 0 ? "not-allowed" : "pointer"}
+          >
+            <Icon icon="bi:arrow-left-circle" width="30px"></Icon>
+          </Box>
+          {[...Array(size-2)].map((item, key1) => (
+            <Box w="80px" mx="1vw" key={key1} bg="#dadada" borderRadius="8px">
+              <Box bg={headColor} w="100%" borderTopRadius="8px">
+                <Text textAlign="center" color="white" fontWeight="500">
+                  {
+                    semana[
+                      d.getDay() + 1 + key1 + varDay < 7
+                        ? d.getDay() + key1 + varDay
+                        : (d.getDay() + key1 + varDay) % 7
+                    ]
+                  }{" "}
                 </Text>
-                <Text color="white">
-                  {d.getDate() + varDay + key1 >
-                  new Date(2022, d.getMonth(), 0).getDate()
-                    ? month[d.getMonth() + 1]
-                    : month[d.getMonth()]}
-                </Text>
-              </Flex>
-            </Box>
-            <Box>
-            {hours.map((item, key) => (
-              <Box
-                key={key}
-                w="65px"
-                h="60px"
-                mx="10%"
-                my="10%"
-                borderRadius="8px"
-                cursor={handleColor(key1, item)==notColor?"not-allowed":"pointer"}
-                onClick={() => {
-                  for (let i = 0; i < info.length; i++) {
-                    if (
-                      info[i].informs?.day ==
-                      (d.getDate() + varDay + key1 >
-                      new Date(2022, d.getMonth(), 0).getDate()
-                        ? d.getDate() +
-                          varDay +
-                          key1 -
-                          new Date(2022, d.getMonth(), 0).getDate()
-                        : d.getDate() + varDay + key1)
-                    ) {
-                      if (info[i].informs.hour == item) {
+                <Flex justifyContent="space-around">
+                  <Text color="white">
+                    {d.getDate() + varDay + key1 >
+                    new Date(2022, d.getMonth(), 0).getDate()
+                      ? d.getDate() +
+                        varDay +
+                        key1 -
+                        new Date(2022, d.getMonth(), 0).getDate()
+                      : d.getDate() + varDay + key1}
+                  </Text>
+                  <Text color="white">
+                    {d.getDate() + varDay + key1 >
+                    new Date(2022, d.getMonth(), 0).getDate()
+                      ? month[d.getMonth() + 1]
+                      : month[d.getMonth()]}
+                  </Text>
+                </Flex>
+              </Box>
+              <Box>
+                {hours.map((item, key) => (
+                  <Box
+                    key={key}
+                    w="65px"
+                    h="60px"
+                    mx="auto"
+                    my=".5vh"
+                    borderRadius="8px"
+                    cursor={
+                      handleColor(key1, item) == notColor
+                        ? "not-allowed"
+                        : "pointer"
+                    }
+                    onClick={() => {
+                      for (let i = 0; i < info.length; i++) {
                         if (
-                          info[i].informs.month - 1 ==
+                          info[i].informs?.day ==
                           (d.getDate() + varDay + key1 >
                           new Date(2022, d.getMonth(), 0).getDate()
-                            ? d.getMonth() + 1
-                            : d.getMonth())
+                            ? d.getDate() +
+                              varDay +
+                              key1 -
+                              new Date(2022, d.getMonth(), 0).getDate()
+                            : d.getDate() + varDay + key1)
                         ) {
-                          return 0;
+                          if (info[i].informs.hour == item) {
+                            if (
+                              info[i].informs.month - 1 ==
+                              (d.getDate() + varDay + key1 >
+                              new Date(2022, d.getMonth(), 0).getDate()
+                                ? d.getMonth() + 1
+                                : d.getMonth())
+                            ) {
+                              return 0;
+                            }
+                          }
                         }
                       }
+                      selectDay(
+                        key1,
+                        item,
+                        d.getDate() + varDay + key1 >
+                          new Date(2022, d.getMonth(), 0).getDate()
+                          ? d.getMonth() + 1
+                          : d.getMonth()
+                      );
+                    }}
+                    bg={handleColor(key1, item)}
+                    _hover={
+                      handleColor(key1, item) == notColor
+                        ? { background: notColor }
+                        : handleColor(key1, item) == selectedColor
+                        ? { background: selectedColor }
+                        : { background: houverColor }
                     }
-                  }
-                  selectDay(
-                    key1,
-                    item,
-                    d.getDate() + varDay + key1 >
-                      new Date(2022, d.getMonth(), 0).getDate()
-                      ? d.getMonth() + 1
-                      : d.getMonth()
-                  );
-                }}
-                bg={handleColor(key1, item)}
-                _hover={handleColor(key1, item)==notColor?{ background: notColor }:handleColor(key1, item)==selectedColor?{ background: selectedColor }:{ background: houverColor }}
-                transition=".2s"
-              >
-                <Text textAlign="center" color="white" pt="4px">{item}{}{":00"} <br />Horas</Text>
+                    transition=".2s"
+                  >
+                    <Text textAlign="center" color="white" pt="4px">
+                      {item}
+                      {}
+                      {":00"} <br />
+                      Horas
+                    </Text>
+                  </Box>
+                ))}
               </Box>
-            ))}
             </Box>
+          ))}
+          <Box
+            alignSelf="center"
+            onClick={() =>
+              varDay - 1 > maxDays
+                ? setVarDay(varDay)
+                : setVarDay(varDay + size-2)
+            }
+            cursor={varDay - 1 > maxDays ? "not-allowed" : "pointer"}
+          >
+            <Icon icon="bi:arrow-right-circle" width="30px"></Icon>
           </Box>
-        ))}
-        <Box
-          alignSelf="center"
-          onClick={() =>
-            varDay - 1 > maxDays ? setVarDay(varDay) : setVarDay(varDay + size)
-          }
-          cursor={varDay - 1 > maxDays ? "not-allowed" : "pointer"}
-        >
-        <Icon icon="bi:arrow-right-circle" width="50px"></Icon>
-        </Box>
-      </Flex>
-      {/* 
+        </Flex>
+      </Box>
+      <Box display={{ base: "none", lg: "block", xl: "block" }}>
+        <Flex justifyContent="space-between">
+          <Box
+            alignSelf="center"
+            onClick={() =>
+              varDay - 1 > 0 ? setVarDay(varDay - size) : setVarDay(varDay)
+            }
+            cursor={varDay - 1 == 0 ? "not-allowed" : "pointer"}
+          >
+            <Icon icon="bi:arrow-left-circle" width="50px"></Icon>
+          </Box>
+          {[...Array(size)].map((item, key1) => (
+            <Box w="80px" mx="20px" key={key1} bg="#dadada" borderRadius="8px">
+              <Box bg={headColor} w="100%" borderTopRadius="8px">
+                <Text textAlign="center" color="white" fontWeight="500">
+                  {
+                    semana[
+                      d.getDay() + 1 + key1 + varDay < 7
+                        ? d.getDay() + key1 + varDay
+                        : (d.getDay() + key1 + varDay) % 7
+                    ]
+                  }{" "}
+                </Text>
+                <Flex justifyContent="space-around">
+                  <Text color="white">
+                    {d.getDate() + varDay + key1 >
+                    new Date(2022, d.getMonth(), 0).getDate()
+                      ? d.getDate() +
+                        varDay +
+                        key1 -
+                        new Date(2022, d.getMonth(), 0).getDate()
+                      : d.getDate() + varDay + key1}
+                  </Text>
+                  <Text color="white">
+                    {d.getDate() + varDay + key1 >
+                    new Date(2022, d.getMonth(), 0).getDate()
+                      ? month[d.getMonth() + 1]
+                      : month[d.getMonth()]}
+                  </Text>
+                </Flex>
+              </Box>
+              <Box>
+                {hours.map((item, key) => (
+                  <Box
+                    key={key}
+                    w="65px"
+                    h="60px"
+                    mx="10%"
+                    my="10%"
+                    borderRadius="8px"
+                    cursor={
+                      handleColor(key1, item) == notColor
+                        ? "not-allowed"
+                        : "pointer"
+                    }
+                    onClick={() => {
+                      for (let i = 0; i < info.length; i++) {
+                        if (
+                          info[i].informs?.day ==
+                          (d.getDate() + varDay + key1 >
+                          new Date(2022, d.getMonth(), 0).getDate()
+                            ? d.getDate() +
+                              varDay +
+                              key1 -
+                              new Date(2022, d.getMonth(), 0).getDate()
+                            : d.getDate() + varDay + key1)
+                        ) {
+                          if (info[i].informs.hour == item) {
+                            if (
+                              info[i].informs.month - 1 ==
+                              (d.getDate() + varDay + key1 >
+                              new Date(2022, d.getMonth(), 0).getDate()
+                                ? d.getMonth() + 1
+                                : d.getMonth())
+                            ) {
+                              return 0;
+                            }
+                          }
+                        }
+                      }
+                      selectDay(
+                        key1,
+                        item,
+                        d.getDate() + varDay + key1 >
+                          new Date(2022, d.getMonth(), 0).getDate()
+                          ? d.getMonth() + 1
+                          : d.getMonth()
+                      );
+                    }}
+                    bg={handleColor(key1, item)}
+                    _hover={
+                      handleColor(key1, item) == notColor
+                        ? { background: notColor }
+                        : handleColor(key1, item) == selectedColor
+                        ? { background: selectedColor }
+                        : { background: houverColor }
+                    }
+                    transition=".2s"
+                  >
+                    <Text textAlign="center" color="white" pt="4px">
+                      {item}
+                      {}
+                      {":00"} <br />
+                      Horas
+                    </Text>
+                  </Box>
+                ))}
+              </Box>
+            </Box>
+          ))}
+          <Box
+            alignSelf="center"
+            onClick={() =>
+              varDay - 1 > maxDays
+                ? setVarDay(varDay)
+                : setVarDay(varDay + size)
+            }
+            cursor={varDay - 1 > maxDays ? "not-allowed" : "pointer"}
+          >
+            <Icon icon="bi:arrow-right-circle" width="50px"></Icon>
+          </Box>
+        </Flex>
+        {/* 
       <Text>
         Reunião as {selectedHours} horas, no dia {selectedDay}, do mes{" "}
         {selectedMonth}
       </Text> */}
+      </Box>
     </>
   );
 }

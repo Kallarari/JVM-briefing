@@ -82,7 +82,6 @@ const Home: NextPage = () => {
       setError("Preencha seu nome.");
       return 0;
     }
-
     if (info.email == "") {
       setError("Preencha seu E-mail.");
       return 0;
@@ -91,7 +90,6 @@ const Home: NextPage = () => {
       setError("Preencha seu número.");
       return 0;
     }
-
     setError("");
     handleSendInformation();
     setProgress(progress + 10);
@@ -435,7 +433,7 @@ const Home: NextPage = () => {
               onClick={() => {
                 setProgress(progress + 10);
                 if (progress === 50) {
-                  () => handleSendInformation();
+                  send();
                 }
               }}
               isDisabled={progress == 60 ? true : false}
@@ -604,15 +602,45 @@ const Home: NextPage = () => {
             ownDesign={(own) => setOwnDesign(own)}
             witchDesign={(w) => setWitchDesign(w)}
           />
+          <LastStep
+            step={30}
+            progress={progress}
+            primary={primary}
+            secondary={secondary}
+          />
+          <StepeFour
+            error={error}
+            progress={progress}
+            step={20}
+            primary={primary}
+            secondary={secondary}
+            infor={(n, e, num, d, h, m) => {
+              setInfo({
+                name: n,
+                email: e,
+                numer: num,
+                day: d,
+                hour: h,
+                month: m,
+              }); /* 
+              console.log(n, e, num, d, h, m);
+              console.log("agora o info");
+              console.log(info.day, info.hour, info.month); */
+            }}
+          />
           <Button
             w="10vw"
             mx="auto"
             h="70vh"
             bg="white"
             onClick={() => {
-              setProgress(progress + 10);
+              if (progress == 20) {
+                send();
+              } else {
+                setProgress(progress + 10);
+              }
             }}
-            isDisabled={progress == 60 ? true : false}
+            isDisabled={progress == 30 ? true : false}
             color="white"
             p="0"
           >
@@ -623,7 +651,12 @@ const Home: NextPage = () => {
             />
           </Button>
         </Flex>
-        <Flex h="20vh" w="100vw" border="2px orange solid" justifyContent="space-evenly">
+        <Flex
+          h="20vh"
+          w="100vw"
+          border="2px orange solid"
+          justifyContent="space-evenly"
+        >
           <Box mt="4vh">
             <Flex display="block">
               <Text
