@@ -194,7 +194,7 @@ export default function StepeZero({
           progress == step ? { base: "none", lg: "block", xl: "block" } : "none"
         }
       >
-        <Flex justifyContent="space-around" my="4vh">
+        <Flex justifyContent="space-around" my="4%">
           <Button
             onClick={() => {
               setChose(1);

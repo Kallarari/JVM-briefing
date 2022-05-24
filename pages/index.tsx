@@ -217,16 +217,22 @@ const Home: NextPage = () => {
                 </Text>
               </Link>
               <Image h="5vh" src="/logo.png" alt="" />
-              <Text
-                p="5px 10px"
-                fontWeight="600"
-                color="white"
-                bg={secondary}
-                h="min"
-                borderRadius="10px"
+              <Link
+                href="https://jvm-webmarketing.vercel.app/port/index.html"
+                passHref
               >
-                Porque ter um site?
-              </Text>
+                <Text
+                  p="5px 10px"
+                  fontWeight="600"
+                  color="white"
+                  bg={secondary}
+                  h="min"
+                  borderRadius="10px"
+                  cursor="pointer"
+                >
+                  Portfólio JVM
+                </Text>
+              </Link>
             </Flex>
           </Box>
         </Box>
@@ -238,7 +244,7 @@ const Home: NextPage = () => {
           <Flex
             justifyContent="space-around"
             position="relative"
-            pt={progress > 9 ? "6%" : "11%"}
+            mt={progress > 9 ? "6%" : "11%"}
             transition="2s"
           >
             <Box
@@ -561,12 +567,14 @@ const Home: NextPage = () => {
           justifyContent="center"
           alignContent="center"
         >
-          <Image
-            src="/logosite-branco.png"
-            w="15vw"
-            alt=""
-            alignSelf="center"
-          />
+          <Link passHref href="https://jvm-webmarketing.vercel.app/">
+            <Image
+              src="/logosite-branco.png"
+              w="15vw"
+              alt=""
+              alignSelf="center"
+            />
+          </Link>
         </Flex>
         <Flex>
           <Button

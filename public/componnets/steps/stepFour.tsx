@@ -101,22 +101,13 @@ export default function StepeFour({
           </InputGroup>
           <Text
             textAlign="center"
-            fontSize="20px"
+            fontSize="14px"
             color={primary}
-            fontWeight="500"
-            mb="1vw"
+            fontWeight="400"
+            mt="1vh"
           >
-            Agende sua reunião.
+            Explore mais funcionalidade e agende sua reunião pela versão para computador deste site, ou apenas aguarde um de nossos profissionais entrar em contato. Obrigado
           </Text>
-          <Scheduling
-            color1={primary}
-            color2={secondary}
-            date={(d, h, m) => {
-              setDay(d);
-              setMonth(m);
-              setHour(h);
-            }}
-          ></Scheduling>
         </Box>
       </Box>
       <Box
