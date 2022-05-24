@@ -8,6 +8,7 @@ import {
   Text,
 } from "@chakra-ui/react";
 import { Icon } from "@iconify/react";
+import Link from "next/link";
 import React, { useState } from "react";
 
 
@@ -148,6 +149,8 @@ export default function Explain({primary}:explainProps) {
             </Text>
           </Box>
         </Flex>
+        
+        <Link href="https://jvm-webmarketing.vercel.app/" passHref>
         <Text
           fontSize="20px"
           textAlign="center"
@@ -157,6 +160,7 @@ export default function Explain({primary}:explainProps) {
         >
           Veja exemplos de sites em nosso portfólio <u>clicando aqui.</u>
         </Text>
+        </Link>
       </Box>
   );
 }

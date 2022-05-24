@@ -190,9 +190,11 @@ const Home: NextPage = () => {
               </Text>
             </Flex>
             <Flex w="45%" justifyContent="center">
-              <Button bg="white" color={primary} borderRadius="20px" w="50%">
-                Contato
-              </Button>
+              <Link href="https://api.whatsapp.com/send?phone=5548999493092&text=Seja%20bem%20vindo%20a%20JVM!%20Como%20podemos%20ajudar%3F" passHref>
+                <Button bg="white" color={primary} borderRadius="20px" w="50%">
+                  Contato
+                </Button>
+              </Link>
             </Flex>
           </Flex>
           <Box w={{ base: "none", lg: "1280px", xl: "1440px" }} mx="auto">
