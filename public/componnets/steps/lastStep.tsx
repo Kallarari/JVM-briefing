@@ -54,7 +54,7 @@ export default function LastStep({
       <Text textAlign="center" fontSize="15px" color={primary} fontWeight="500">
         Entraremos em contato o mais breve possível, desde já agradecemos.{" "}
       </Text>
-      <Box w="60%" mx="auto" my="3%">
+      <Box  w={{ base: "60%", lg: "20%", xl: "20%" }} mx="auto" my="3%">
         <Link passHref href="https://jvm-webmarketing.vercel.app/">
           <Button w="100%" bg={secondary} color="white">
             Site JVM
@@ -79,10 +79,10 @@ export default function LastStep({
             </Text>
           </Box>
         </Flex>
-        <Box w="80%" mx="auto">
+        <Box w={{ base: "80%", lg: "20%", xl: "20%" }} mx="auto">
           <Textarea placeholder="Escreva aqui sua sujestão!" mt="2%"></Textarea>
         </Box>
-        <Box w="60%" mx="auto" my="3%">
+        <Box w={{ base: "60%", lg: "20%", xl: "20%" }} mx="auto" my="3%">
           <Button w="100%" bg={primary} color="white">
             Enviar
           </Button>
