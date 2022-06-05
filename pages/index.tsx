@@ -26,6 +26,7 @@ import LastStep from "../public/componnets/steps/lastStep";
 import Steps from "../public/componnets/steps";
 import * as yup from "yup";
 import { motion } from "framer-motion";
+import Mobile from "../public/componnets/mobile";
 
 const Home: NextPage = () => {
   const schema = yup.object().shape({
@@ -190,7 +191,10 @@ const Home: NextPage = () => {
               </Text>
             </Flex>
             <Flex w="45%" justifyContent="center">
-              <Link href="https://api.whatsapp.com/send?phone=5548999493092&text=Seja%20bem%20vindo%20a%20JVM!%20Como%20podemos%20ajudar%3F" passHref>
+              <Link
+                href="https://api.whatsapp.com/send?phone=5548999493092&text=Seja%20bem%20vindo%20a%20JVM!%20Como%20podemos%20ajudar%3F"
+                passHref
+              >
                 <Button bg="white" color={primary} borderRadius="20px" w="50%">
                   Contato
                 </Button>
@@ -562,166 +566,12 @@ const Home: NextPage = () => {
         display={{ base: "block", md: "none", lg: "none", xl: "none" }}
         h="100vh"
       >
-        <Flex
-          bg={primary}
-          h="10vh"
-          w="100vw"
-          justifyContent="center"
-          alignContent="center"
-        >
-          <Link passHref href="https://jvm-webmarketing.vercel.app/">
-            <Image
-              src="/logosite-branco.png"
-              w="15vw"
-              alt=""
-              alignSelf="center"
-            />
-          </Link>
-        </Flex>
-        <Flex>
-          <Button
-            w="10vw"
-            h="70vh"
-            onClick={() => {
-              setProgress(progress - 10);
-            }}
-            isDisabled={progress == 0 ? true : false}
-            bg="white"
-            p="0"
-          >
-            {" "}
-            <Icon
-              icon="akar-icons:chevron-left"
-              color={primary}
-              style={{ width: "500px", height: "auto" }}
-            />
-          </Button>
-          <StepeIntroduction
-            primary={primary}
-            secondary={secondary}
-            step={0}
-            progress={progress}
-          />
-          <StepeZero
-            progress={progress}
-            color2={secondary}
-            step={10}
-            color={primary}
-            time={(temp) => setTime2(temp)}
-            price={(valor) => setValor2(valor)}
-            ownDesign={(own) => setOwnDesign(own)}
-            witchDesign={(w) => setWitchDesign(w)}
-          />
-          <LastStep
-            step={30}
-            progress={progress}
-            primary={primary}
-            secondary={secondary}
-          />
-          <StepeFour
-            error={error}
-            progress={progress}
-            step={20}
-            primary={primary}
-            secondary={secondary}
-            infor={(n, e, num, d, h, m) => {
-              setInfo({
-                name: n,
-                email: e,
-                numer: num,
-                day: d,
-                hour: h,
-                month: m,
-              }); /* 
-              console.log(n, e, num, d, h, m);
-              console.log("agora o info");
-              console.log(info.day, info.hour, info.month); */
-            }}
-          />
-          <Button
-            w="10vw"
-            mx="auto"
-            h="70vh"
-            bg="white"
-            onClick={() => {
-              if (progress == 20) {
-                send();
-              } else {
-                setProgress(progress + 10);
-              }
-            }}
-            isDisabled={progress == 30 ? true : false}
-            color="white"
-            p="0"
-          >
-            <Icon
-              icon="akar-icons:chevron-right"
-              color={primary}
-              style={{ width: "500px", height: "auto" }}
-            />
-          </Button>
-        </Flex>
-        <Flex
-          h="20vh"
-          w="100vw"
-          border="2px orange solid"
-          justifyContent="space-evenly"
-        >
-          <Box mt="4vh">
-            <Flex display="block">
-              <Text
-                mr="5px"
-                alignSelf="end"
-                textAlign="center"
-                fontSize="14px"
-                color={secondary}
-                w="max-content"
-              >
-                Em 10x de
-              </Text>
-              <Text
-                textAlign="center"
-                fontSize="20px"
-                color={secondary}
-                w="max-content"
-              >
-                {" R$ " + (((valor + valor2) / 10) * 11) / 10 + ",00 reais"}
-              </Text>
-            </Flex>
-            <Text
-              textAlign="center"
-              fontSize="10px"
-              color={secondary}
-              w="max-content"
-              mx="auto"
-              display={ownDesign ? "none" : "flex"}
-            >
-              {" Ou a vista por " + (" R$ " + (valor + valor2) + ",00 reais")}
-            </Text>
-            <Text
-              textAlign="center"
-              fontSize="18px"
-              color={secondary}
-              w="max-content"
-              mx="auto"
-              display={ownDesign ? "flex" : "none"}
-            >
-              Fazer reunião
-            </Text>
-          </Box>
-          <Box mt="5vh">
-            <Text textAlign="center" fontSize="20px" color={primary}>
-              Tempo estimado
-            </Text>
-            <Text textAlign="center" fontSize="20px" color={secondary}>
-              {ownDesign
-                ? "Fazer Reunião"
-                : (time + time2 > 20 ? (time + time2) / 20 : time + time2) +
-                  " " +
-                  (time + time2 > 20 ? "meses" : "dias")}
-            </Text>
-          </Box>
-        </Flex>
+        <Mobile
+          changeColor={(color, second) => {
+            setPrimary(color);
+            setSecondary(second);
+          }}
+        />
       </Box>
     </>
   );

@@ -125,9 +125,9 @@ export default function Scheduling({ color1, color2, date }: schedulingProps) {
     <>
       <Box
         display={{ base: "block", md: "none", lg: "none", xl: "none" }}
-        w="80vw"
+        w="90vw"
         mx="auto"
-        h="70vh"
+        mb="2vh"
       >
         <Flex justifyContent="space-between">
           <Box
