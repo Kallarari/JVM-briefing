@@ -158,9 +158,9 @@ export default function Mobile({ changeColor }: mobileProps) {
 
   const image = [
     ["/site1-1.png", "/site1-2.png", "/site1-3.png", "/site1-4.png"],
-    ["/site2-1.png", "/site2-2.png", "/site2-3.png", "/site2-4.png"],
-    ["/site3-1.png", "/site3-2.png", "/site3-3.png", "/site3-4.png"],
-    ["/site4-1.png", "/site4-2.png", "/site4-3.png", "/site4-4.png"],
+    ["/site2-1.png", "/site2-2.png", "/site2-3.png", "/site2-modelo.png"],
+    ["/site3-first.png", "/site3-second.png", "/site3-thir.png", "/site3-four.png"],
+    ["/site4-first.png", "/site4-two.png", "/site5-three.png", "/site4-four.png"],
   ];
   const [selected, setSelected] = useState(0);
   const [value, setValue] = useState("");
