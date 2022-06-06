@@ -22,7 +22,7 @@ export default function Adm() {
     false,
     false,
   ]);
-  const [show, setShow] = useState(Number);
+  const [show, setShow] = useState(-1);
   const [info, setInfo] = useState<any>([]);
   useEffect(() => {
     axios.get("/api/read").then((resp) => {
@@ -76,12 +76,12 @@ export default function Adm() {
       <Box
         w="100vw"
         h="100vh"
-        bg="black"
+        bg="linear-gradient(225deg, #004688 0%, #242830 100%)"
         p="2%"
         mt="-6vh"
         display={disp ? "block" : "none"}
       >
-        <Box my="3%" mx="auto" w="50%" bg="#4643ff" borderRadius="8px">
+        <Box my="3%" mx="auto" w="50%" bg="#e4e4e4aa" borderRadius="8px">
           <Text
             textAlign="center"
             color="White"
@@ -91,11 +91,11 @@ export default function Adm() {
             Últimos projetos submetidos
           </Text>
           <Box>
-            <Flex>
+            <Flex bg="#3b3b3b" py="1%">
               <Box w="41%" borderRight="1px solid white">
                 <Text
-                  fontSize="16px"
-                  fontWeight="400"
+                  fontSize="20px"
+                  fontWeight="600"
                   color="white"
                   textAlign="center"
                 >
@@ -105,8 +105,8 @@ export default function Adm() {
               </Box>
               <Box w="41%">
                 <Text
-                  fontSize="16px"
-                  fontWeight="400"
+                  fontSize="20px"
+                  fontWeight="600"
                   color="white"
                   textAlign="center"
                 >
@@ -153,6 +153,7 @@ export default function Adm() {
                       bg="#ff1d1d"
                       color="white"
                       w="18%"
+                      mt="1vh"
                       onClick={() => {
                         handleDelete();
                         setID(item._id);
